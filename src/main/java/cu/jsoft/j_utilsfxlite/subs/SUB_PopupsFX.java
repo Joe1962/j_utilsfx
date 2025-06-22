@@ -9,19 +9,17 @@ import static cu.jsoft.j_utilsfxlite.global.CONSTS.EMPTY_STRING;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -40,50 +38,45 @@ public class SUB_PopupsFX {
 		// Create new Stage:
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.WINDOW_MODAL);
-
-		// Prep VBox to hold MyContent and OK button:
-		GridPane gridPane1 = new GridPane();
-		gridPane1.setVgap(10);
-		gridPane1.setAlignment(Pos.CENTER_RIGHT);
-
-		ButtonBar theButbar = new ButtonBar();
-		gridPane1.add(MyContent, 0, 0);
+		//dialog.setResizable(false);
+		dialog.setTitle(MyTitle);
 
 		// Prep OK Button:
 		Button butOK = new Button("OK");
 		butOK.setDefaultButton(true);
-		
+		butOK.setMinWidth(85);
+		butOK.setGraphic(new ImageView(new Image(SUB_PopupsFX.class.getResourceAsStream("/icons/22/dialog-ok-apply.png"))));
+
 		butOK.setOnAction(new EventHandler<ActionEvent>() {
 			 @Override
 			 public void handle(ActionEvent event) {
 				  dialog.close();
 			 }
 		});
-		// Prep HBox to align butOK:
-		HBox butAligner = new HBox(butOK);
-		butAligner.setAlignment(Pos.CENTER);
-		//Add HBox to gridPane1:
-		gridPane1.add(butAligner, 0, 1);
 
-		// Create parent TitledPane:
-		TitledPane parent = new TitledPane(MyTitle, gridPane1);
+		// Create parent Pane:
+		BorderPane parent = new BorderPane();
+		parent.setCenter(MyContent);
+		parent.setBottom(butOK);
+		BorderPane.setMargin(butOK, new Insets(5,0,5,0));
+		BorderPane.setAlignment(butOK, Pos.CENTER);
 
-		// Create a scene with the StackPane as the root
+		// Create a scene with the parent Pane as the root:
 		Scene scene = new Scene(parent, Width, height);
 
-		// Make the scene background transparent
+		// Make the scene background transparent:
 		scene.setFill(Color.TRANSPARENT);
 
-		// Set the scene for the stage
+		// Set the scene for the stage:
 		dialog.setScene(scene);
 
 		//	Play with the styles:
-		dialog.initStyle(StageStyle.TRANSPARENT);
+		dialog.initStyle(StageStyle.UTILITY);
 
-		// Center the SplashScreen on the screen
+		// Center the dialog on the screen:
 		dialog.centerOnScreen();
 
-		// Display the SplashScreen
+		// Display the dialog:
 		dialog.showAndWait();
 	}
 
