@@ -12,7 +12,7 @@ package cu.jsoft.j_utilsfxlite;
 public class LibInfo {
 	// Lib constants:
 	private static final String TITLE = "j-utilsfx_m";
-	private static final String VERSION = "1.4.1";
+	private static final String VERSION = "1.4.2";
 	private static final String BUILD = "250528.02";
 
 
