@@ -16,11 +16,11 @@ public class SUB_Protect {
 		return MyTyp.getEncryptedStr();
 	}
 
-	public String getDecryptedString(String theEncKey, String theSecKey, byte[] theIV) {
+	public String getDecryptedString(String encryptedString, String theSecKey, byte[] theIV) {
 		TYP_AES_Utils MyTyp = new TYP_AES_Utils();
 		MyTyp.setSecKeyStr(theSecKey);
 		MyTyp.setIv(theIV);
-		MyTyp.setEncryptedStr(theEncKey);
+		MyTyp.setEncryptedStr(encryptedString);
 		return CLS_AES_Utils.strDecrypthelper(MyTyp);
 	}
 
