@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -103,12 +104,19 @@ public class SUB_UtilsFX {
 		}
 	}
 
-	
-
 	public static void toFrontHelper(StackPane stp, String PaneID) {
 		for (int i = 0; i < stp.getChildrenUnmodifiable().size(); i++) {
 			if (stp.getChildrenUnmodifiable().get(i).getId().equals(PaneID)) {
 				stp.getChildren().get(i).toFront();
+				return;
+			}
+		}
+	}
+
+	public static void toBackHelper(StackPane stp, String PaneID) {
+		for (int i = 0; i < stp.getChildrenUnmodifiable().size(); i++) {
+			if (stp.getChildrenUnmodifiable().get(i).getId().equals(PaneID)) {
+				stp.getChildren().get(i).toBack();
 				return;
 			}
 		}
@@ -151,6 +159,7 @@ public class SUB_UtilsFX {
 
 	public static void doFadeInOut(Node fromNode, Node toNode, Duration fadeOutDelay, Duration fadeOutDuration, Duration fadeInDelay, Duration fadeInDuration) {
 		FadeTransition fadeOut = new FadeTransition(fadeOutDuration);
+		fadeOut.setFromValue(1.0);
 		fadeOut.setToValue(0);
 		fadeOut.setNode(fromNode);
 		fadeOut.setDelay(fadeOutDelay);
@@ -161,8 +170,12 @@ public class SUB_UtilsFX {
 				fadeOut.setOnFinished(null);
 			}
 		});
-		//fadeOut.playFromStart();
-		fadeOut.play();
+
+		Platform.runLater(() -> {
+			fadeOut.playFromStart();
+			//fadeOut.play();
+		});
+
 	}
 
 	public static void doFadeOut(Node fromNode, Duration fadeOutDelay, Duration fadeOutDuration, double Value) {
@@ -174,11 +187,16 @@ public class SUB_UtilsFX {
 	}
 
 	public static void doFadeIn(Node toNode, Duration fadeInDelay, Duration fadeInDuration, double Value) {
-		FadeTransition fadeIn = new FadeTransition(fadeInDuration, toNode);
+		FadeTransition fadeIn = new FadeTransition(fadeInDuration);
+		fadeIn.setNode(toNode);
+		fadeIn.setFromValue(0);
 		fadeIn.setToValue(Value);			// Full fade in = 1...
 		fadeIn.setDelay(fadeInDelay);
-		//fadeIn.playFromStart();
-		fadeIn.play();
+		
+		Platform.runLater(() -> {
+			fadeIn.playFromStart();
+			//fadeIn.play();
+		});
 	}
 
 }
