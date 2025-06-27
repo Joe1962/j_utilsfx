@@ -104,50 +104,18 @@ public class SUB_PopupsFX {
 
 	/**
 	 *
-	 * @param title the value of title
-	 * @param MyMsg the value of MyMsg
-	 * @param MyDuration the value of MyDuration
-	 * @param MyPos the value of MyPos
-	 * @param isDarkStyle the value of isDarkStyle
-	 * @param MyImage the value of MyImage
-	 */
-	public static void NotificationWarningOKFX(String title, String MyMsg, int MyDuration, Pos MyPos, boolean isDarkStyle, String MyImage) {
-		NotificationFXHelper(MyMsg, title != null ? title : "ALERTA...", MyDuration, MyPos, isDarkStyle, MyImage).showWarning();
-	}
-
-	/**
-	 *
 	 * @param parent the value of parent
 	 * @param title the value of title
 	 * @param header the value of header
 	 * @param content the value of content
-	 * @return the boolean
 	 */
-	public static boolean MsgWarningYesNoFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle(title != null ? title : "ALERTA...");
+	public static void MsgInfoOKFX(Window parent, String title, String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle(title != null ? title : "AVISO...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 *
-	 * @param title the value of title
-	 * @param MyMsg the value of MyMsg
-	 * @param MyDuration the value of MyDuration
-	 * @param MyPos the value of MyPos
-	 * @param isDarkStyle the value of isDarkStyle
-	 * @param MyImage the value of MyImage
-	 */
-	public static void NotificationErrorOKFX(String title, String MyMsg, int MyDuration, Pos MyPos, boolean isDarkStyle, String MyImage) {
-		NotificationFXHelper(MyMsg, title != null ? title : "ERROR...", MyDuration, MyPos, isDarkStyle, MyImage).showWarning();
+		alert.showAndWait();
 	}
 
 	/**
@@ -158,7 +126,7 @@ public class SUB_PopupsFX {
 	 * @param content the value of content
 	 * @return the boolean
 	 */
-	public static boolean MsgQuestionYesNoFX(Window parent, String title, String header, String content) {
+	public static boolean MsgQuestionOKCancelFX(Window parent, String title, String header, String content) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle(title != null ? title : "AVISO...");
 		alert.setHeaderText(header);
@@ -180,8 +148,96 @@ public class SUB_PopupsFX {
 	 * @param content the value of content
 	 * @return the boolean
 	 */
-	public static boolean MsgErrorYesNoFX(Window parent, String title, String header, String content) {
+	public static boolean MsgQuestionYesNoFX(Window parent, String title, String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, ButtonType.YES, ButtonType.NO);
+		((Button) alert.getDialogPane().lookupButton(ButtonType.YES)).setText("SI");
+		((Button) alert.getDialogPane().lookupButton(ButtonType.NO)).setText("NO");
+		alert.setTitle(title != null ? title : "AVISO...");
+		alert.setHeaderText(header);
+		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initOwner(parent);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 *
+	 * @param parent the value of parent
+	 * @param title the value of title
+	 * @param header the value of header
+	 * @param content the value of content
+	 */
+	public static void MsgWarningOKFX(Window parent, String title, String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.WARNING);
+		alert.setTitle(title != null ? title : "ALERTA...");
+		alert.setHeaderText(header);
+		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initOwner(parent);
+		alert.showAndWait();
+	}
+
+	/**
+	 *
+	 * @param parent the value of parent
+	 * @param title the value of title
+	 * @param header the value of header
+	 * @param content the value of content
+	 * @return the boolean
+	 */
+	public static boolean MsgWarningOKCancelFX(Window parent, String title, String header, String content) {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		alert.setTitle(title != null ? title : "ALERTA...");
+		alert.setHeaderText(header);
+		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initOwner(parent);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 *
+	 * @param parent the value of parent
+	 * @param title the value of title
+	 * @param header the value of header
+	 * @param content the value of content
+	 * @return the boolean
+	 */
+	public static boolean MsgWarningYesNoFX(Window parent, String title, String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, ButtonType.YES, ButtonType.NO);
+		((Button) alert.getDialogPane().lookupButton(ButtonType.YES)).setText("SI");
+		((Button) alert.getDialogPane().lookupButton(ButtonType.NO)).setText("NO");
+		alert.setTitle(title != null ? title : "ALERTA...");
+		alert.setHeaderText(header);
+		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initOwner(parent);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == ButtonType.OK) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 *
+	 * @param parent the value of parent
+	 * @param title the value of title
+	 * @param header the value of header
+	 * @param content the value of content
+	 * @return the boolean
+	 */
+	public static boolean MsgErrorYesNoFX(Window parent, String title, String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, ButtonType.YES, ButtonType.NO);
+		((Button) alert.getDialogPane().lookupButton(ButtonType.YES)).setText("SI");
+		((Button) alert.getDialogPane().lookupButton(ButtonType.NO)).setText("NO");
 		alert.setTitle(title != null ? title : "ERROR...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
@@ -250,22 +306,6 @@ public class SUB_PopupsFX {
 
 	/**
 	 *
-	 * @param parent the value of parent
-	 * @param title the value of title
-	 * @param header the value of header
-	 * @param content the value of content
-	 */
-	public static void MsgWarningOKFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.WARNING);
-		alert.setTitle(title != null ? title : "ALERTA...");
-		alert.setHeaderText(header);
-		alert.setContentText(content != null ? content : EMPTY_STRING);
-		alert.initOwner(parent);
-		alert.showAndWait();
-	}
-
-	/**
-	 *
 	 * @param title the value of title
 	 * @param MyMsg the value of MyMsg
 	 * @param MyDuration the value of MyDuration
@@ -279,62 +319,28 @@ public class SUB_PopupsFX {
 
 	/**
 	 *
-	 * @param parent the value of parent
 	 * @param title the value of title
-	 * @param header the value of header
-	 * @param content the value of content
-	 * @return the boolean
+	 * @param MyMsg the value of MyMsg
+	 * @param MyDuration the value of MyDuration
+	 * @param MyPos the value of MyPos
+	 * @param isDarkStyle the value of isDarkStyle
+	 * @param MyImage the value of MyImage
 	 */
-	public static boolean MsgQuestionOKCancelFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle(title != null ? title : "AVISO...");
-		alert.setHeaderText(header);
-		alert.setContentText(content != null ? content : EMPTY_STRING);
-		alert.initOwner(parent);
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			return true;
-		} else {
-			return false;
-		}
+	public static void NotificationWarningOKFX(String title, String MyMsg, int MyDuration, Pos MyPos, boolean isDarkStyle, String MyImage) {
+		NotificationFXHelper(MyMsg, title != null ? title : "ALERTA...", MyDuration, MyPos, isDarkStyle, MyImage).showWarning();
 	}
 
 	/**
 	 *
-	 * @param parent the value of parent
 	 * @param title the value of title
-	 * @param header the value of header
-	 * @param content the value of content
-	 * @return the boolean
+	 * @param MyMsg the value of MyMsg
+	 * @param MyDuration the value of MyDuration
+	 * @param MyPos the value of MyPos
+	 * @param isDarkStyle the value of isDarkStyle
+	 * @param MyImage the value of MyImage
 	 */
-	public static boolean MsgWarningOKCancelFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle(title != null ? title : "ALERTA...");
-		alert.setHeaderText(header);
-		alert.setContentText(content != null ? content : EMPTY_STRING);
-		alert.initOwner(parent);
-		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 *
-	 * @param parent the value of parent
-	 * @param title the value of title
-	 * @param header the value of header
-	 * @param content the value of content
-	 */
-	public static void MsgInfoOKFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setTitle(title != null ? title : "AVISO...");
-		alert.setHeaderText(header);
-		alert.setContentText(content != null ? content : EMPTY_STRING);
-		alert.initOwner(parent);
-		alert.showAndWait();
+	public static void NotificationErrorOKFX(String title, String MyMsg, int MyDuration, Pos MyPos, boolean isDarkStyle, String MyImage) {
+		NotificationFXHelper(MyMsg, title != null ? title : "ERROR...", MyDuration, MyPos, isDarkStyle, MyImage).showWarning();
 	}
 
 	public static SUB_PopupsFX getInstance() {
