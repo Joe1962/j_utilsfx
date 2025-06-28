@@ -161,7 +161,7 @@ public class SUB_PopupsFX {
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+		if (result.get() == ButtonType.YES) {
 			return true;
 		} else {
 			return false;
@@ -199,7 +199,7 @@ public class SUB_PopupsFX {
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+		if (result.get() == ButtonType.YES) {
 			return true;
 		} else {
 			return false;
@@ -223,7 +223,7 @@ public class SUB_PopupsFX {
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.OK) {
+		if (result.get() == ButtonType.YES) {
 			return true;
 		} else {
 			return false;
@@ -247,7 +247,7 @@ public class SUB_PopupsFX {
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
 		Optional<ButtonType> result = alert.showAndWait();
-		return result.get() == ButtonType.OK;
+		return result.get() == ButtonType.YES;
 	}
 
 	/**
