@@ -34,7 +34,7 @@ import org.controlsfx.control.Notifications;
  */
 public class SUB_PopupsFX {
 
-	public static void SimpleDialog(String MyTitle, Node MyContent, String butText, int Width, int height) {
+	public static void SimpleDialog(String MyTitle, Node MyContent, String butText, int width, int height) {
 		// Create new Stage:
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.WINDOW_MODAL);
@@ -46,7 +46,7 @@ public class SUB_PopupsFX {
 		Button butOK = new Button(butText);
 		butOK.setDefaultButton(true);
 		butOK.setMinWidth(85);
-		butOK.setGraphic(new ImageView(new Image(SUB_PopupsFX.class.getResourceAsStream("/icons/22/dialog-ok-apply.png"))));
+		butOK.setGraphic(new ImageView(new Image(SUB_PopupsFX.class.getClassLoader().getResourceAsStream("icons/22/dialog-ok-apply.png"))));
 
 		butOK.setOnAction(new EventHandler<ActionEvent>() {
 			 @Override
@@ -63,7 +63,10 @@ public class SUB_PopupsFX {
 		BorderPane.setAlignment(butOK, Pos.CENTER);
 
 		// Create a scene with the parent Pane as the root:
-		Scene scene = new Scene(parent, Width, height);
+		if (width > 0 | height > 0) {
+			Scene scene = new Scene(parent, width, height);
+		}
+		Scene scene = new Scene(parent);
 
 		// Make the scene background transparent:
 		scene.setFill(Color.TRANSPARENT);
