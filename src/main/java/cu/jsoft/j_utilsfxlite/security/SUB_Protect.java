@@ -1,3 +1,6 @@
+/*
+ * Copyright Joe1962
+ */
 package cu.jsoft.j_utilsfxlite.security;
 
 import cu.jsoft.j_utilsfxlite.security.types.TYP_AES_Utils;
