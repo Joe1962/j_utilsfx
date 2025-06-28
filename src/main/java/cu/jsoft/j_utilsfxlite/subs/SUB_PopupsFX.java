@@ -34,7 +34,7 @@ import org.controlsfx.control.Notifications;
  */
 public class SUB_PopupsFX {
 
-	public static void SimpleDialog(String MyTitle, Node MyContent, int Width, int height) {
+	public static void SimpleDialog(String MyTitle, Node MyContent, String butText, int Width, int height) {
 		// Create new Stage:
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.WINDOW_MODAL);
@@ -42,7 +42,8 @@ public class SUB_PopupsFX {
 		dialog.setTitle(MyTitle);
 
 		// Prep OK Button:
-		Button butOK = new Button("OK");
+		//Button butOK = new Button("OK");
+		Button butOK = new Button(butText);
 		butOK.setDefaultButton(true);
 		butOK.setMinWidth(85);
 		butOK.setGraphic(new ImageView(new Image(SUB_PopupsFX.class.getResourceAsStream("/icons/22/dialog-ok-apply.png"))));

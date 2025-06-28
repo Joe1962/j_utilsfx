@@ -25,8 +25,10 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.CodeSource;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -116,6 +118,10 @@ public class SUB_UtilsFileIO {
 		}
 
 		return areadline;
+	}
+
+	public static String readFileToString(Path path, Charset MyCharset) throws IOException {
+		return Files.readString(path, MyCharset);
 	}
 
 	public static void writeStringToFileWithSysEnc(File tmpFile, String strTemp) throws IOException {
