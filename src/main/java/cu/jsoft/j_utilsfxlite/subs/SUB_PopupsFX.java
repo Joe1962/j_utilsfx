@@ -61,10 +61,12 @@ public class SUB_PopupsFX {
 		BorderPane.setAlignment(butOK, Pos.CENTER);
 
 		// Create a scene with the parent Pane as the root:
+		Scene scene;
 		if (width > 0 | height > 0) {
-			Scene scene = new Scene(parent, width, height);
+			scene = new Scene(parent, width, height);
+		} else {
+			scene = new Scene(parent);
 		}
-		Scene scene = new Scene(parent);
 
 		// Make the scene background transparent:
 		scene.setFill(Color.TRANSPARENT);
