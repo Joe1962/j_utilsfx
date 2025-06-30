@@ -239,7 +239,7 @@ public class SUB_PopupsFX {
 	 * @return the boolean
 	 */
 	public static boolean MsgErrorYesNoFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION, content, ButtonType.YES, ButtonType.NO);
+		Alert alert = new Alert(Alert.AlertType.ERROR, content, ButtonType.YES, ButtonType.NO);
 		((Button) alert.getDialogPane().lookupButton(ButtonType.YES)).setText("SI");
 		((Button) alert.getDialogPane().lookupButton(ButtonType.NO)).setText("NO");
 		alert.setTitle(title != null ? title : "ERROR...");
@@ -275,7 +275,7 @@ public class SUB_PopupsFX {
 	 * @return the boolean
 	 */
 	public static boolean MsgErrorOKCancelFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.setTitle(title != null ? title : "ERROR...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
