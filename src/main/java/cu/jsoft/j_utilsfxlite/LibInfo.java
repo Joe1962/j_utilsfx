@@ -1,5 +1,6 @@
 /*
  * Copyright Joe1962
+ * https://github.com/Joe1962
  */
 package cu.jsoft.j_utilsfxlite;
 
@@ -9,9 +10,9 @@ package cu.jsoft.j_utilsfxlite;
  */
 public class LibInfo {
 	// Lib constants:
-	private static final String TITLE = "j-utilsfx_m";
-	private static final String VERSION = "1.4.2";
-	private static final String BUILD = "250528.02";
+	private static final String TITLE = "j_utilsfxlite";
+	private static final String VERSION = "1.4.3";
+	private static final String BUILD = "250701.01";
 
 
 
