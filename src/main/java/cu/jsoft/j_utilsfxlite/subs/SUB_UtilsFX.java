@@ -16,7 +16,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
@@ -27,29 +26,6 @@ import javafx.util.Duration;
  * @author joe1962
  */
 public class SUB_UtilsFX {
-
-	public static void setupTableView(TableView tblMaster, String dbtable, boolean debugMode) {
-//		// First we generate the columns from sys_field_titles:
-//		RS_SysFieldTitles RSSysFieldTitles = new RS_SysFieldTitles();
-//		RSSysFieldTitles.setMyTableName(dbtable);
-//		RSSysFieldTitles.selectByPK(debugMode);
-//		boolean retBool = true;
-//		tblMaster.getColumns().clear();
-//		while (retBool) {
-//			TYP_SysFieldTitle MySysFieldTitle = (TYP_SysFieldTitle) RSSysFieldTitles.getCurrent();
-//			String fieldTitle = MySysFieldTitle.getField_title();
-//			if (fieldTitle != null && !fieldTitle.equals(CONSTS.EMPTY_STRING)) {
-//				TableColumn col = new TableColumn(MySysFieldTitle.getField_title());
-//				col.setPrefWidth(MySysFieldTitle.getField_prefwidth());
-//				col.setCellValueFactory(new PropertyValueFactory(MySysFieldTitle.getField_name()));
-//				col.setStyle(getTableColumnTextAlignment(MySysFieldTitle.getField_datatype()));
-//				col.setEditable(false);
-//				tblMaster.getColumns().add(col);
-//			}
-//			retBool = RSSysFieldTitles.goNext();
-//		}
-//		tblMaster.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-	}
 
 	public static String getTableColumnTextAlignment(String field_datatype) {
 		switch (field_datatype) {
