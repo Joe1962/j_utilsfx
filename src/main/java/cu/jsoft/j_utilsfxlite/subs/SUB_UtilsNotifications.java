@@ -69,7 +69,13 @@ public class SUB_UtilsNotifications {
 		//Toolkit.getDefaultToolkit().beep();
 		//hj.utils.CLS_WavPlayer_old.getMyClip().setFramePosition(0);
 		if (isBEEP() & isBEEPAVAILABLE()) {
-			CLS_WavPlayer.play();
+			new Thread() {
+				@Override
+				public void run() {
+					CLS_WavPlayer.play();
+				};
+			}
+			.start();
 		}
 	}
 
