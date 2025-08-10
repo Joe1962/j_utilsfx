@@ -37,6 +37,7 @@ public class SUB_PopupsFX {
 		// Create new Stage:
 		final Stage dialog = new Stage();
 		dialog.initModality(Modality.WINDOW_MODAL);
+		dialog.setAlwaysOnTop(true);
 		//dialog.setResizable(false);
 		dialog.setTitle(MyTitle);
 
@@ -48,17 +49,17 @@ public class SUB_PopupsFX {
 		butOK.setGraphic(new ImageView(new Image(SUB_PopupsFX.class.getClassLoader().getResourceAsStream("icons/22/dialog-ok-apply.png"))));
 
 		butOK.setOnAction(new EventHandler<ActionEvent>() {
-			 @Override
-			 public void handle(ActionEvent event) {
-				  dialog.close();
-			 }
+			@Override
+			public void handle(ActionEvent event) {
+				dialog.close();
+			}
 		});
 
 		// Create parent Pane:
 		BorderPane parent = new BorderPane();
 		parent.setCenter(MyContent);
 		parent.setBottom(butOK);
-		BorderPane.setMargin(butOK, new Insets(5,0,5,0));
+		BorderPane.setMargin(butOK, new Insets(5, 0, 5, 0));
 		BorderPane.setAlignment(butOK, Pos.CENTER);
 
 		// Create a scene with the parent Pane as the root:
@@ -100,6 +101,11 @@ public class SUB_PopupsFX {
 		dialog.setHeaderText(header);
 		dialog.setContentText(content != null ? content : EMPTY_STRING);
 		dialog.initOwner(parent);
+
+		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		Optional<String> result = dialog.showAndWait();
 		if (result.isPresent()) {
 			return result.get();
@@ -120,6 +126,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		alert.showAndWait();
 	}
 
@@ -137,6 +148,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			return true;
@@ -161,6 +177,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.YES) {
 			return true;
@@ -182,6 +203,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		alert.showAndWait();
 	}
 
@@ -199,6 +225,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.YES) {
 			return true;
@@ -223,6 +254,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.YES) {
 			return true;
@@ -246,6 +282,11 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "ERROR...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		alert.initOwner(parent);
 		Optional<ButtonType> result = alert.showAndWait();
 		return result.get() == ButtonType.YES;
@@ -264,6 +305,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		alert.showAndWait();
 	}
 
@@ -281,6 +327,11 @@ public class SUB_PopupsFX {
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
 		alert.initOwner(parent);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == ButtonType.OK) {
 			return true;
@@ -359,4 +410,5 @@ public class SUB_PopupsFX {
 
 		private static final SUB_PopupsFX INSTANCE = new SUB_PopupsFX();
 	}
+
 }
