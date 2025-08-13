@@ -20,6 +20,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -32,6 +33,41 @@ import org.controlsfx.control.Notifications;
  * @author joe1962
  */
 public class SUB_PopupsFX {
+	private static Font errHeaderFont;
+	private static Font errContentFont;
+
+	/**
+	 * @return the errHeaderFont
+	 */
+	public static Font getErrHeaderFont() {
+		return errHeaderFont;
+	}
+
+	/**
+	 * @param aErrHeaderFont the errHeaderFont to set
+	 */
+	public static void setErrHeaderFont(Font aErrHeaderFont) {
+		errHeaderFont = aErrHeaderFont;
+	}
+
+	/**
+	 * @return the errContentFont
+	 */
+	public static Font getErrContentFont() {
+		return errContentFont;
+	}
+
+	/**
+	 * @param aErrContentFont the errContentFont to set
+	 */
+	public static void setErrContentFont(Font aErrContentFont) {
+		errContentFont = aErrContentFont;
+	}
+
+	public static void setFonts( Font errHeaderFont, Font errContentFont) {
+		SUB_PopupsFX.setErrHeaderFont(errHeaderFont);
+		SUB_PopupsFX.setErrContentFont(errContentFont);
+	}
 
 	public static void SimpleDialog(String MyTitle, Node MyContent, String butText, int width, int height) {
 		// Create new Stage:
