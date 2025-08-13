@@ -64,7 +64,7 @@ public class SUB_PopupsFX {
 		errContentFont = aErrContentFont;
 	}
 
-	public static void setFonts( Font errHeaderFont, Font errContentFont) {
+	public static void setFonts(Font errHeaderFont, Font errContentFont) {
 		SUB_PopupsFX.setErrHeaderFont(errHeaderFont);
 		SUB_PopupsFX.setErrContentFont(errContentFont);
 	}
