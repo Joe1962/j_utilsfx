@@ -267,7 +267,7 @@ public class SUB_PopupsFX {
 		stage.toFront(); // not sure if necessary
 
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == ButtonType.YES) {
+		if (result.get() == ButtonType.OK) {
 			return true;
 		} else {
 			return false;
