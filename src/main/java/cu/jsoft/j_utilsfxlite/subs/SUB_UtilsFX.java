@@ -7,8 +7,10 @@ package cu.jsoft.j_utilsfxlite.subs;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,6 +18,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
@@ -168,11 +171,76 @@ public class SUB_UtilsFX {
 		fadeIn.setFromValue(0);
 		fadeIn.setToValue(Value);			// Full fade in = 1...
 		fadeIn.setDelay(fadeInDelay);
-		
+
 		Platform.runLater(() -> {
 			fadeIn.playFromStart();
 			//fadeIn.play();
 		});
+	}
+
+	/**
+	 * Schedules a focus request for a text input control
+	 *
+	 * @param control The text field or text area to focus
+	 * @param maxAttempts Maximum number of animation frames to try (typically
+	 * 30-60 for 0.5-1 second)
+	 */
+	public static void scheduleFocusRequest(TextInputControl control, int maxAttempts) {
+		AtomicInteger attempts = new AtomicInteger(0);
+
+		AnimationTimer timer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				if (control.isVisible() && control.getScene() != null && control.getScene().getWindow() != null) {
+					control.requestFocus();
+					control.selectAll();
+					this.stop();
+				} else if (attempts.incrementAndGet() >= maxAttempts) {
+					this.stop(); // Give up after max attempts
+				}
+			}
+		};
+		timer.start();
+	}
+
+	/**
+	 * Convenience method to schedules a focus request for a text input control with default attempts (50 frames ~= 0.8 seconds at
+	 * 60fps)
+	 */
+	public static void scheduleFocusRequest(TextInputControl control) {
+		scheduleFocusRequest(control, 50);
+	}
+
+	/**
+	 * Schedules a focus request with selection for a text input control
+	 *
+	 * @param control The text field or text area to focus
+	 * @param maxAttempts Maximum number of animation frames to try (typically
+	 * 30-60 for 0.5-1 second)
+	 */
+	public static void scheduleFocusRequestAndSelectAll(TextInputControl control, int maxAttempts) {
+		AtomicInteger attempts = new AtomicInteger(0);
+
+		AnimationTimer timer = new AnimationTimer() {
+			@Override
+			public void handle(long now) {
+				if (control.isVisible() && control.getScene() != null && control.getScene().getWindow() != null) {
+					control.requestFocus();
+					this.stop();
+				} else if (attempts.incrementAndGet() >= maxAttempts) {
+					this.stop(); // Give up after max attempts
+				}
+			}
+		};
+		timer.start();
+	}
+
+	/**
+	 * Convenience method to schedules a focus request with selection for a text input control with default attempts (50 frames ~= 0.8 seconds at
+	 * 60fps)
+	 */
+	public static void scheduleFocusRequestAndSelectAll(TextInputControl control) {
+		scheduleFocusRequestAndSelectAll(control, 50);
 	}
 
 }
