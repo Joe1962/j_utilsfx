@@ -60,6 +60,7 @@ public class SUB_UtilsFX {
 	}
 
 	private static void handleComboBoxScroll(ScrollEvent event, ComboBox<?> comboBox) {
+		// Only process every Nth event or use a cooldown
 		int currentIndex = comboBox.getSelectionModel().getSelectedIndex();
 		int itemCount = comboBox.getItems().size();
 
@@ -67,12 +68,16 @@ public class SUB_UtilsFX {
 			return;
 		}
 
-		if (event.getDeltaY() > 0) {
-			// Scroll up
-			comboBox.getSelectionModel().select(Math.max(0, currentIndex - 1));
-		} else {
-			// Scroll down
-			comboBox.getSelectionModel().select(Math.min(itemCount - 1, currentIndex + 1));
+		// Round the delta to get discrete steps
+		int scrollSteps = (int) Math.signum(event.getDeltaY());
+
+		if (scrollSteps != 0) {
+			int newIndex = currentIndex - scrollSteps; // Invert for natural scrolling
+			newIndex = Math.max(0, Math.min(itemCount - 1, newIndex));
+
+			if (newIndex != currentIndex) {
+				comboBox.getSelectionModel().select(newIndex);
+			}
 		}
 
 		event.consume();
