@@ -16,6 +16,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Tooltip;
@@ -76,6 +77,36 @@ public class SUB_UtilsFX {
 
 			if (newIndex != currentIndex) {
 				comboBox.getSelectionModel().select(newIndex);
+			}
+		}
+
+		event.consume();
+	}
+
+	public static void setupChoiceBoxScrolling(ChoiceBox<?> chbBox) {
+		chbBox.addEventFilter(ScrollEvent.SCROLL, event -> {
+			handleChoiceBoxScroll(event, chbBox);
+		});
+	}
+
+	private static void handleChoiceBoxScroll(ScrollEvent event, ChoiceBox<?> chbBox) {
+		// Only process every Nth event or use a cooldown
+		int currentIndex = chbBox.getSelectionModel().getSelectedIndex();
+		int itemCount = chbBox.getItems().size();
+
+		if (itemCount <= 1) {
+			return;
+		}
+
+		// Round the delta to get discrete steps
+		int scrollSteps = (int) Math.signum(event.getDeltaY());
+
+		if (scrollSteps != 0) {
+			int newIndex = currentIndex - scrollSteps; // Invert for natural scrolling
+			newIndex = Math.max(0, Math.min(itemCount - 1, newIndex));
+
+			if (newIndex != currentIndex) {
+				chbBox.getSelectionModel().select(newIndex);
 			}
 		}
 
