@@ -53,35 +53,60 @@ public class SUB_UtilsFX {
 		}
 	}
 
-	public static void cmbOnScrollHandler(ScrollEvent event, ComboBox cmbBox) {
-		int SelPos = cmbBox.getSelectionModel().getSelectedIndex();
-		int LastPos = cmbBox.getItems().size() - 1;
-		double Delta = event.getDeltaY() * -1;
-		if (Delta > 0) {
-			if (SelPos < LastPos) {
-				cmbBox.getSelectionModel().selectNext();
-			}
-		} else {
-			if (SelPos > 0) {
-				cmbBox.getSelectionModel().selectPrevious();
-			}
-		}
+	public static void setupComboBoxScrolling(ComboBox<?> comboBox) {
+		comboBox.addEventFilter(ScrollEvent.SCROLL, event -> {
+			handleComboBoxScroll(event, comboBox);
+		});
 	}
 
-	public static void chbOnScrollHandler(ScrollEvent event, ChoiceBox chbBox) {
-		int SelPos = chbBox.getSelectionModel().getSelectedIndex();
-		int LastPos = chbBox.getItems().size() - 1;
-		double Delta = event.getDeltaY() * -1;
-		if (Delta > 0) {
-			if (SelPos < LastPos) {
-				chbBox.getSelectionModel().selectNext();
-			}
-		} else {
-			if (SelPos > 0) {
-				chbBox.getSelectionModel().selectPrevious();
-			}
+	private static void handleComboBoxScroll(ScrollEvent event, ComboBox<?> comboBox) {
+		int currentIndex = comboBox.getSelectionModel().getSelectedIndex();
+		int itemCount = comboBox.getItems().size();
+
+		if (itemCount <= 1) {
+			return;
 		}
+
+		if (event.getDeltaY() > 0) {
+			// Scroll up
+			comboBox.getSelectionModel().select(Math.max(0, currentIndex - 1));
+		} else {
+			// Scroll down
+			comboBox.getSelectionModel().select(Math.min(itemCount - 1, currentIndex + 1));
+		}
+
+		event.consume();
 	}
+
+//	public static void cmbOnScrollHandler(ScrollEvent event, ComboBox cmbBox) {
+//		int SelPos = cmbBox.getSelectionModel().getSelectedIndex();
+//		int LastPos = cmbBox.getItems().size() - 1;
+//		double Delta = event.getDeltaY() * -1;
+//		if (Delta > 0) {
+//			if (SelPos < LastPos) {
+//				cmbBox.getSelectionModel().selectNext();
+//			}
+//		} else {
+//			if (SelPos > 0) {
+//				cmbBox.getSelectionModel().selectPrevious();
+//			}
+//		}
+//	}
+//
+//	public static void chbOnScrollHandler(ScrollEvent event, ChoiceBox chbBox) {
+//		int SelPos = chbBox.getSelectionModel().getSelectedIndex();
+//		int LastPos = chbBox.getItems().size() - 1;
+//		double Delta = event.getDeltaY() * -1;
+//		if (Delta > 0) {
+//			if (SelPos < LastPos) {
+//				chbBox.getSelectionModel().selectNext();
+//			}
+//		} else {
+//			if (SelPos > 0) {
+//				chbBox.getSelectionModel().selectPrevious();
+//			}
+//		}
+//	}
 
 	public static void toFrontHelper(StackPane stp, String PaneID) {
 		for (int i = 0; i < stp.getChildrenUnmodifiable().size(); i++) {
