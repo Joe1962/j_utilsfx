@@ -309,31 +309,6 @@ public class SUB_PopupsFX {
 	 * @param title the value of title
 	 * @param header the value of header
 	 * @param content the value of content
-	 * @return the boolean
-	 */
-	public static boolean MsgErrorYesNoFX(Window parent, String title, String header, String content) {
-		Alert alert = new Alert(Alert.AlertType.ERROR, content, ButtonType.YES, ButtonType.NO);
-		((Button) alert.getDialogPane().lookupButton(ButtonType.YES)).setText("SI");
-		((Button) alert.getDialogPane().lookupButton(ButtonType.NO)).setText("NO");
-		alert.setTitle(title != null ? title : "ERROR...");
-		alert.setHeaderText(header);
-		alert.setContentText(content != null ? content : EMPTY_STRING);
-
-		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-		stage.setAlwaysOnTop(true);
-		stage.toFront(); // not sure if necessary
-
-		alert.initOwner(parent);
-		Optional<ButtonType> result = alert.showAndWait();
-		return result.get() == ButtonType.YES;
-	}
-
-	/**
-	 *
-	 * @param parent the value of parent
-	 * @param title the value of title
-	 * @param header the value of header
-	 * @param content the value of content
 	 */
 	public static void MsgErrorOKFX(Window parent, String title, String header, String content) {
 		Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -374,6 +349,31 @@ public class SUB_PopupsFX {
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 *
+	 * @param parent the value of parent
+	 * @param title the value of title
+	 * @param header the value of header
+	 * @param content the value of content
+	 * @return the boolean
+	 */
+	public static boolean MsgErrorYesNoFX(Window parent, String title, String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.ERROR, content, ButtonType.YES, ButtonType.NO);
+		((Button) alert.getDialogPane().lookupButton(ButtonType.YES)).setText("SI");
+		((Button) alert.getDialogPane().lookupButton(ButtonType.NO)).setText("NO");
+		alert.setTitle(title != null ? title : "ERROR...");
+		alert.setHeaderText(header);
+		alert.setContentText(content != null ? content : EMPTY_STRING);
+
+		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+		stage.setAlwaysOnTop(true);
+		stage.toFront(); // not sure if necessary
+
+		alert.initOwner(parent);
+		Optional<ButtonType> result = alert.showAndWait();
+		return result.get() == ButtonType.YES;
 	}
 
 	/**

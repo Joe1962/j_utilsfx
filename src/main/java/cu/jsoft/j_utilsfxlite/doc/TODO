@@ -1,6 +1,7 @@
 j_utilsfx_lite TODO:
 
 SUB_PopupsFX.SimpleDialog: Implement icon like on Alerts.
+SUB_PopupsFX: make use of errHeaderFont and errContentFont.
 
 ********************************************************************************
 
