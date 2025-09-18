@@ -1,0 +1,12 @@
+CHANGELOG j_utilsfx-lite:
+
+
+250917:
+	Added package builders.
+	Added builders.TableRowStyleBuilder.
+	SUB_UtilsFX: Removed obsolete commented code.
+	Added global.TODO.
+250824:
+	SUB_UtilsFX: Changed ComboBox mouse scroll handling thanks to DeepSeek.
+	FIXED: SUB_UtilsFX.handleComboBoxScroll: was not working on single item comboboxes.
+

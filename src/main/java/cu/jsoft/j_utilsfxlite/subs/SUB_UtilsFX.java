@@ -64,7 +64,7 @@ public class SUB_UtilsFX {
 		int currentIndex = comboBox.getSelectionModel().getSelectedIndex();
 		int itemCount = comboBox.getItems().size();
 
-		if (itemCount <= 1) {
+		if (itemCount < 1) {
 			return;
 		}
 
@@ -112,36 +112,6 @@ public class SUB_UtilsFX {
 
 		event.consume();
 	}
-
-//	public static void cmbOnScrollHandler(ScrollEvent event, ComboBox cmbBox) {
-//		int SelPos = cmbBox.getSelectionModel().getSelectedIndex();
-//		int LastPos = cmbBox.getItems().size() - 1;
-//		double Delta = event.getDeltaY() * -1;
-//		if (Delta > 0) {
-//			if (SelPos < LastPos) {
-//				cmbBox.getSelectionModel().selectNext();
-//			}
-//		} else {
-//			if (SelPos > 0) {
-//				cmbBox.getSelectionModel().selectPrevious();
-//			}
-//		}
-//	}
-//
-//	public static void chbOnScrollHandler(ScrollEvent event, ChoiceBox chbBox) {
-//		int SelPos = chbBox.getSelectionModel().getSelectedIndex();
-//		int LastPos = chbBox.getItems().size() - 1;
-//		double Delta = event.getDeltaY() * -1;
-//		if (Delta > 0) {
-//			if (SelPos < LastPos) {
-//				chbBox.getSelectionModel().selectNext();
-//			}
-//		} else {
-//			if (SelPos > 0) {
-//				chbBox.getSelectionModel().selectPrevious();
-//			}
-//		}
-//	}
 
 	public static void toFrontHelper(StackPane stp, String PaneID) {
 		for (int i = 0; i < stp.getChildrenUnmodifiable().size(); i++) {
