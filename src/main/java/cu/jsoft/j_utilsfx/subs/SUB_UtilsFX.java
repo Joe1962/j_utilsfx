@@ -31,22 +31,22 @@ import javafx.util.Duration;
 public class SUB_UtilsFX {
 
 	public static String getTableColumnTextAlignment(String field_datatype) {
-		switch (field_datatype) {
+		switch (field_datatype.toLowerCase()) {
 			case "boolean":
-			case "Boolean":
 				return "-fx-alignment: CENTER;";
 			case "int":
-			case "Integer":
+				return "-fx-alignment: CENTER-RIGHT;";
+			case "integer":
+				return "-fx-alignment: CENTER-RIGHT;";
 			case "long":
-			case "Long":
 				return "-fx-alignment: CENTER-RIGHT;";
 			case "double":
-			case "Double":
-			case "BigDecimal":
 				return "-fx-alignment: CENTER-RIGHT;";
-			case "String":
+			case "bigdecimal":
+				return "-fx-alignment: CENTER-RIGHT;";
+			case "string":
 				return "-fx-alignment: CENTER-LEFT;";
-			case "Date":
+			case "date":
 				return "-fx-alignment: CENTER;";
 			default:
 				return "-fx-alignment: CENTER-LEFT;";
