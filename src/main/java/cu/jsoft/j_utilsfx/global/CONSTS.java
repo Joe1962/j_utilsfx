@@ -58,4 +58,12 @@ public class CONSTS {
 	public static final String BeepFileName = "error.wav";
 	public static final String URL_SoundsError = URL_Sounds_Lib + BeepFileName;
 	
+	public static enum LEDState {
+		RED, YELLOW, GREEN
+	}
+
+	public static enum ACTIVEState {
+		BOTH, ONLYACTIVE, ONLYINACTIVE, NONE
+	}
+
 }
