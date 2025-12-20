@@ -1,6 +1,11 @@
 CHANGELOG j_utilsfx-lite:
 
 
+251220:
+	CONSTS: added cssLightCalendarHighlite, cssDarkCalendarHighlite, for DatePickerHighlightDates.
+	CONSTS: css list text colours now come in Light and Dark versions.
+	SUB_UtilsFX: added DatePickerHighlightDates.
+	Moved css constants from hjrmsfx to CONSTS. Some cleanup and fixing.
 251119:
 	CONSTS: added LEDState and ACTIVEState enums.
 250917:

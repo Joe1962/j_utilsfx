@@ -7,6 +7,8 @@ package cu.jsoft.j_utilsfx.subs;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
@@ -271,6 +275,20 @@ public class SUB_UtilsFX {
 	 */
 	public static void scheduleFocusRequestAndSelectAll(TextInputControl control) {
 		scheduleFocusRequestAndSelectAll(control, 50);
+	}
+
+	public static void DatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, String cssStyle, String toolTip) {
+		// Apply highlighting
+		datePicker.setDayCellFactory(picker -> new DateCell() {
+			@Override
+			public void updateItem(LocalDate date, boolean empty) {
+				super.updateItem(date, empty);
+				if (date != null && !empty && DatesToHighlight.contains(date)) {
+					setStyle(cssStyle);
+					setTooltip(new Tooltip(toolTip));
+				}
+			}
+		});
 	}
 
 }

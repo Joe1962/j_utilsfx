@@ -39,6 +39,36 @@ public class CONSTS {
 	public static final int DB_GREEN = 2;
 	public static final int DefaultTimerDuration = 3000;
 
+	// css Style constants:
+	public static String cssLightListTextColStarred = "-fx-text-fill: green;";
+	public static String cssLightListTextColDashed = "-fx-text-fill: brown;";
+	public static String cssLightListTextColNote = "-fx-text-fill: blue;";
+	public static String cssLightListTextColError = "-fx-text-fill: red;";
+	public static String cssLightListTextColDefault = "-fx-text-fill: black;";
+
+	public static String cssDarkListTextColStarred = "-fx-text-fill: lightgreen;";
+	public static String cssDarkListTextColDashed = "-fx-text-fill: tan;";
+	public static String cssDarkListTextColNote = "-fx-text-fill: lightblue;";
+	public static String cssDarkListTextColError = "-fx-text-fill: orange;";
+	public static String cssDarkListTextColDefault = "-fx-text-fill: white, !important;";
+
+	public static String cssLightCalendarHighlite = "-fx-background-color: yellow;";
+	public static String cssDarkCalendarHighlite = "-fx-background-color: darkorange";
+
+	public static String cssTableRowInactiveHighlight = "-fx-text-fill: black !important; -fx-background-color: yellow;";
+	public static String cssTableRowInactiveHighlightSelected = "-fx-background-color: darkorange;";			//  -fx-text-fill: black;
+
+	public static final String cssEtchedBorder = """
+		-fx-border-base: gray;
+		-fx-border-shadow: white;
+		-fx-light-border: derive(-fx-border-base, 25%);
+		-fx-border-color: -fx-light-border -fx-border-base -fx-border-base -fx-light-border;
+		-fx-border-insets: 0 1 1 0;
+		-fx-background-insets: 1 0 0 1, 2;
+		-fx-border-width: 1;
+      -fx-padding: 2;
+	""";
+
 	// RESOURCE CONSTANTS:
 	public static final String URL_LEDs = "/LEDS/";
 	public static final String URL_LEDs16 = URL_LEDs + "16/";
