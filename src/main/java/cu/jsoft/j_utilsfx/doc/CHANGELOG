@@ -2,6 +2,8 @@ CHANGELOG j_utilsfx-lite:
 
 
 251220:
+	SUB_UtilsFX: added DatePickerFormatSQL.
+	Moved CHANGELOG from global to doc.
 	CONSTS: added cssLightCalendarHighlite, cssDarkCalendarHighlite, for DatePickerHighlightDates.
 	CONSTS: css list text colours now come in Light and Dark versions.
 	SUB_UtilsFX: added DatePickerHighlightDates.

@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 /**
  *
@@ -286,6 +288,34 @@ public class SUB_UtilsFX {
 				if (date != null && !empty && DatesToHighlight.contains(date)) {
 					setStyle(cssStyle);
 					setTooltip(new Tooltip(toolTip));
+				}
+			}
+		});
+	}
+
+	public static void DatePickerFormatSQL(DatePicker datePicker) {
+		String pattern = "yyyy-MM-dd";
+
+		datePicker.setPromptText(pattern.toLowerCase());
+
+		datePicker.setConverter(new StringConverter<LocalDate>() {
+			DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(pattern);
+
+			@Override
+			public String toString(LocalDate date) {
+				if (date != null) {
+					return dateFormatter.format(date);
+				} else {
+					return "";
+				}
+			}
+
+			@Override
+			public LocalDate fromString(String string) {
+				if (string != null && !string.isEmpty()) {
+					return LocalDate.parse(string, dateFormatter);
+				} else {
+					return null;
 				}
 			}
 		});

@@ -11,8 +11,8 @@ package cu.jsoft.j_utilsfx;
 public class LibInfo {
 	// Lib constants:
 	private static final String TITLE = "j_utilsfx";
-	private static final String VERSION = "1.6.2";
-	private static final String BUILD = "251120.01";
+	private static final String VERSION = "1.6.3";
+	private static final String BUILD = "251120.02";
 
 
 
