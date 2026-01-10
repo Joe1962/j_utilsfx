@@ -19,6 +19,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
@@ -27,6 +28,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -319,6 +321,14 @@ public class SUB_UtilsFX {
 				}
 			}
 		});
+	}
+
+	protected void setDefaultFontToAll(Parent parent, Font font) {
+		for (Node node : parent.getChildrenUnmodifiable()) {
+			if (node instanceof Parent) {
+				setDefaultFontToAll((Parent) node, font);
+			}
+		}
 	}
 
 }

@@ -1,6 +1,9 @@
 CHANGELOG j_utilsfx-lite:
 
 
+260110:
+	SUB_UtilsFX: added setDefaultFontToAll.
+	SUB_UtilsFXResources: added getResourceFont.
 251220:
 	SUB_UtilsFX: added DatePickerFormatSQL.
 	Moved CHANGELOG from global to doc.
