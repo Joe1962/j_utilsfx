@@ -2,6 +2,7 @@ CHANGELOG j_utilsfx-lite:
 
 
 260110:
+	BUG: SUB_UtilsFX: forgot to make setDefaultFontToAll static.
 	BUG: SUB_UtilsFX: changed setDefaultFontToAll from protected to public.
 	SUB_UtilsFX: added setDefaultFontToAll.
 	SUB_UtilsFXResources: added getResourceFont.
