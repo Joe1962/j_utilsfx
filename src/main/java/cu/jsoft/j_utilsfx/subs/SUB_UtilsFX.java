@@ -323,7 +323,7 @@ public class SUB_UtilsFX {
 		});
 	}
 
-	protected void setDefaultFontToAll(Parent parent, Font font) {
+	public void setDefaultFontToAll(Parent parent, Font font) {
 		for (Node node : parent.getChildrenUnmodifiable()) {
 			if (node instanceof Parent) {
 				setDefaultFontToAll((Parent) node, font);
