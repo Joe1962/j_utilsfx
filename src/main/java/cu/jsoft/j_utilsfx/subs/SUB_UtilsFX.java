@@ -20,15 +20,30 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Labeled;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -324,10 +339,162 @@ public class SUB_UtilsFX {
 	}
 
 	public static void setDefaultFontToAll(Parent parent, Font font) {
+		// Handle special container types
+		if (parent instanceof TitledPane) {
+			TitledPane titledPane = (TitledPane) parent;
+			titledPane.setFont(font);
+
+			Node content = ((TitledPane) parent).getContent();
+			if (content instanceof Parent) {
+				setDefaultFontToAll((Parent) content, font);
+			}
+			return;
+		}
+
+		if (parent instanceof TabPane) {
+			// Style tab titles
+			TabPane tabPane = (TabPane) parent;
+			styleTabPaneTitles(tabPane, font);
+
+			// Style tab contents
+			for (Tab tab : ((TabPane) parent).getTabs()) {
+				Node content = tab.getContent();
+				if (content instanceof Parent) {
+					setDefaultFontToAll((Parent) content, font);
+				}
+			}
+			return;
+		}
+
+		if (parent instanceof SplitPane) {
+			for (Node node : ((SplitPane) parent).getItems()) {
+				if (node instanceof Parent) {
+					setDefaultFontToAll((Parent) node, font);
+				}
+			}
+			return;
+		}
+
+		if (parent instanceof ScrollPane) {
+			Node content = ((ScrollPane) parent).getContent();
+			if (content instanceof Parent) {
+				setDefaultFontToAll((Parent) content, font);
+			}
+			return;
+		}
+
+		// Handle Accordion (container of TitledPanes)
+		if (parent instanceof Accordion) {
+			for (TitledPane pane : ((Accordion) parent).getPanes()) {
+				setDefaultFontToAll(pane, font);
+			}
+			return;
+		}
+
+		if (parent instanceof ButtonBar) {
+			ButtonBar buttonBar = (ButtonBar) parent;
+			for (Node node : buttonBar.getButtons()) {
+				applyFontToNode(node, font);
+				if (node instanceof Parent) {
+					setDefaultFontToAll((Parent) node, font);
+				}
+			}
+			return;
+		}
+
+		if (parent instanceof ToolBar) {
+			ToolBar toolBar = (ToolBar) parent;
+			for (Node node : toolBar.getItems()) {
+				applyFontToNode(node, font);
+				if (node instanceof Parent) {
+					setDefaultFontToAll((Parent) node, font);
+				}
+			}
+			return;
+		}
+
+		if (parent instanceof MenuBar) {
+			MenuBar menuBar = (MenuBar) parent;
+			// Apply font via CSS to the entire MenuBar
+			String menuCSS = String.format(
+					  "-fx-font-family: '%s'; -fx-font-size: %fpx;",
+					  font.getFamily(), font.getSize()
+			);
+			menuBar.setStyle(menuCSS);
+			return;
+		}
+
+		if (parent instanceof BorderPane) {
+			BorderPane borderPane = (BorderPane) parent;
+			applyToBorderPaneRegions(borderPane, font);
+			return;
+		}
+
+		// Regular container processing
 		for (Node node : parent.getChildrenUnmodifiable()) {
+			applyFontToNode(node, font);
+
 			if (node instanceof Parent) {
 				setDefaultFontToAll((Parent) node, font);
 			}
+		}
+	}
+
+	private static void applyFontToNode(Node node, Font font) {
+		if (node instanceof Labeled) {
+			Labeled labeledNode = (Labeled) node;
+			if (labeledNode.fontProperty().isBound()) {
+				System.out.println("Node: " + node + " binding: " + labeledNode.fontProperty().getBean());
+				return;
+			}
+			((Labeled) node).setFont(font);
+		} else if (node instanceof TextInputControl) {
+			((TextInputControl) node).setFont(font);
+		} else if (node instanceof Text) {
+			Text textNode = (Text) node;
+			if (textNode.fontProperty().isBound()) {
+				System.out.println("Node: " + node + " binding: " + textNode.fontProperty().getBean());
+				return;
+			}
+			((Text) node).setFont(font);
+		}
+		// Add other font-supporting types as needed
+	}
+
+	private static void styleTabPaneTitles(TabPane tabPane, Font font) {
+		for (Tab tab : tabPane.getTabs()) {
+			String style = String.format(
+					  "-fx-font-family: '%s'; -fx-font-size: %fpx;",
+					  font.getFamily(),
+					  font.getSize()
+			);
+
+			// Apply to each tab
+			tab.setStyle(style);
+
+			// Also apply font to tab content if it has any
+			Node content = tab.getContent();
+			if (content instanceof Parent) {
+				setDefaultFontToAll((Parent) content, font);
+			}
+		}
+	}
+
+	private static void applyToBorderPaneRegions(BorderPane borderPane, Font font) {
+		if (borderPane.getTop() instanceof Parent) {
+			setDefaultFontToAll((Parent) borderPane.getTop(), font);
+		}
+		if (borderPane.getBottom() instanceof Parent) {
+			setDefaultFontToAll((Parent) borderPane.getBottom(), font);
+		}
+		if (borderPane.getLeft() instanceof Parent) {
+			setDefaultFontToAll((Parent) borderPane.getLeft(), font);
+		}
+		if (borderPane.getRight() instanceof Parent) {
+			setDefaultFontToAll((Parent) borderPane.getRight(), font);
+		}
+		if (borderPane.getCenter() instanceof Parent) {
+			setDefaultFontToAll((Parent) borderPane.getCenter(), font);
 		}
 	}
 
