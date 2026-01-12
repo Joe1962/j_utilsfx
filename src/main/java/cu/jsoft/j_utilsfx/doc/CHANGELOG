@@ -1,6 +1,7 @@
 CHANGELOG j_utilsfx-lite:
 
-
+260112:
+	SUB_UtilsFX: added createStyledTab method.
 260110:
 	SUB_UtilsFX.setDefaultFontToAll: added handling for more containers.
 	BUG: SUB_UtilsFX.setDefaultFontToAll: fixed to handle tab titles.

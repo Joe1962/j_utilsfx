@@ -498,4 +498,25 @@ public class SUB_UtilsFX {
 		}
 	}
 
+	public static Tab createStyledTab(String tabTitle, Font tabFont) {
+		// Prepare style for tab title:
+		String style = String.format(
+				  "-fx-font-family: '%s'; -fx-font-size: %fpx;",
+				  tabFont.getFamily(),
+				  tabFont.getSize()
+		);
+
+		// Create new tab:
+		Tab newTab = new Tab();
+
+		// Apply style for tab title:
+		newTab.setStyle(style);
+
+		// Set tab title:
+		newTab.setText(tabTitle);
+
+		// Return new styled tab:
+		return newTab;
+	}
+
 }
