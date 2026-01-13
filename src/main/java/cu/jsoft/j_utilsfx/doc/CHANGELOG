@@ -1,6 +1,7 @@
 CHANGELOG j_utilsfx-lite:
 
 260113:
+	SUB_UtilsFX: cleaned up unused imports.
 	SUB_UtilsFX: deleted applyFontToNode.
 	SUB_UtilsFX: applyFontToNode is now unused and marked DEPRECATED.
 	SUB_UtilsFX: setDefaultFontToAll, applyFontViaCSS, createStyledTab now use prepFontCSS.
