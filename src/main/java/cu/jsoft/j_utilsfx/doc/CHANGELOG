@@ -1,7 +1,15 @@
 CHANGELOG j_utilsfx-lite:
 
+260113:
+	SUB_UtilsFX: deleted applyFontToNode.
+	SUB_UtilsFX: applyFontToNode is now unused and marked DEPRECATED.
+	SUB_UtilsFX: setDefaultFontToAll, applyFontViaCSS, createStyledTab now use prepFontCSS.
+	SUB_UtilsFX: added prepFontCSS to prepare CSS style string from font.
+	SUB_UtilsFX.setDefaultFontToAll: now uses mostly applyFontViaCSS.
+	SUB_UtilsFX: added applyFontViaCSS to use css instead of setFont or other workarounds.
 260112:
-	SUB_UtilsFX: added createStyledTab method.
+	SUB_UtilsFX: added createStyledTab method for dynamic tabs.
+	SUB_UtilsFX: added styleTabPaneTitles, applyToBorderPaneRegions to handle special cases.
 260110:
 	SUB_UtilsFX.setDefaultFontToAll: added handling for more containers.
 	BUG: SUB_UtilsFX.setDefaultFontToAll: fixed to handle tab titles.

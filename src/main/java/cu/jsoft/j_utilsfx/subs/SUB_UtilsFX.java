@@ -339,11 +339,16 @@ public class SUB_UtilsFX {
 	}
 
 	public static void setDefaultFontToAll(Parent parent, Font font) {
+		// Apply to this node
+		applyFontViaCSS(parent, font);
+
 		// Handle special container types
 		if (parent instanceof TitledPane) {
+			// Style TitledPane title:
 			TitledPane titledPane = (TitledPane) parent;
 			titledPane.setFont(font);
 
+			// Style TitledPane contents:
 			Node content = ((TitledPane) parent).getContent();
 			if (content instanceof Parent) {
 				setDefaultFontToAll((Parent) content, font);
@@ -352,11 +357,11 @@ public class SUB_UtilsFX {
 		}
 
 		if (parent instanceof TabPane) {
-			// Style tab titles
+			// Style tab titles:
 			TabPane tabPane = (TabPane) parent;
 			styleTabPaneTitles(tabPane, font);
 
-			// Style tab contents
+			// Style tab contents:
 			for (Tab tab : ((TabPane) parent).getTabs()) {
 				Node content = tab.getContent();
 				if (content instanceof Parent) {
@@ -394,7 +399,7 @@ public class SUB_UtilsFX {
 		if (parent instanceof ButtonBar) {
 			ButtonBar buttonBar = (ButtonBar) parent;
 			for (Node node : buttonBar.getButtons()) {
-				applyFontToNode(node, font);
+				applyFontViaCSS(node, font);
 				if (node instanceof Parent) {
 					setDefaultFontToAll((Parent) node, font);
 				}
@@ -405,7 +410,7 @@ public class SUB_UtilsFX {
 		if (parent instanceof ToolBar) {
 			ToolBar toolBar = (ToolBar) parent;
 			for (Node node : toolBar.getItems()) {
-				applyFontToNode(node, font);
+				applyFontViaCSS(node, font);
 				if (node instanceof Parent) {
 					setDefaultFontToAll((Parent) node, font);
 				}
@@ -416,11 +421,8 @@ public class SUB_UtilsFX {
 		if (parent instanceof MenuBar) {
 			MenuBar menuBar = (MenuBar) parent;
 			// Apply font via CSS to the entire MenuBar
-			String menuCSS = String.format(
-					  "-fx-font-family: '%s'; -fx-font-size: %fpx;",
-					  font.getFamily(), font.getSize()
-			);
-			menuBar.setStyle(menuCSS);
+			applyFontViaCSS(menuBar, font);
+			//menuBar.setStyle(prepFontCSS(font));
 			return;
 		}
 
@@ -431,48 +433,37 @@ public class SUB_UtilsFX {
 		}
 
 		// Regular container processing
-		for (Node node : parent.getChildrenUnmodifiable()) {
-			applyFontToNode(node, font);
-
-			if (node instanceof Parent) {
-				setDefaultFontToAll((Parent) node, font);
+		if (!parent.getChildrenUnmodifiable().isEmpty()) {
+			for (Node node : parent.getChildrenUnmodifiable()) {
+				applyFontViaCSS(node, font);
+				if (node instanceof Parent) {
+					setDefaultFontToAll((Parent) node, font);
+				}
 			}
 		}
 	}
 
-	private static void applyFontToNode(Node node, Font font) {
-		if (node instanceof Labeled) {
-			Labeled labeledNode = (Labeled) node;
-			if (labeledNode.fontProperty().isBound()) {
-				System.out.println("Node: " + node + " binding: " + labeledNode.fontProperty().getBean());
-				return;
-			}
-			((Labeled) node).setFont(font);
-		} else if (node instanceof TextInputControl) {
-			((TextInputControl) node).setFont(font);
-		} else if (node instanceof Text) {
-			Text textNode = (Text) node;
-			if (textNode.fontProperty().isBound()) {
-				System.out.println("Node: " + node + " binding: " + textNode.fontProperty().getBean());
-				return;
-			}
-			((Text) node).setFont(font);
-		}
-		// Add other font-supporting types as needed
+	private static String prepFontCSS(Font font) {
+		return String.format(
+				  "-fx-font-family: '%s'; -fx-font-size: %fpx;",
+				  font.getFamily(), font.getSize()
+		);
+	}
+
+	private static void applyFontViaCSS(Node node, Font font) {
+		String fontCSS = prepFontCSS(font);
+
+		// Append to existing style
+		String existingStyle = node.getStyle();
+		node.setStyle(fontCSS + (existingStyle != null && !existingStyle.isEmpty() ? " " + existingStyle : ""));
 	}
 
 	private static void styleTabPaneTitles(TabPane tabPane, Font font) {
 		for (Tab tab : tabPane.getTabs()) {
-			String style = String.format(
-					  "-fx-font-family: '%s'; -fx-font-size: %fpx;",
-					  font.getFamily(),
-					  font.getSize()
-			);
+			// Apply style to each tab:
+			tab.setStyle(prepFontCSS(font));
 
-			// Apply to each tab
-			tab.setStyle(style);
-
-			// Also apply font to tab content if it has any
+			// Also apply font to tab content if it has any:
 			Node content = tab.getContent();
 			if (content instanceof Parent) {
 				setDefaultFontToAll((Parent) content, font);
@@ -498,19 +489,12 @@ public class SUB_UtilsFX {
 		}
 	}
 
-	public static Tab createStyledTab(String tabTitle, Font tabFont) {
-		// Prepare style for tab title:
-		String style = String.format(
-				  "-fx-font-family: '%s'; -fx-font-size: %fpx;",
-				  tabFont.getFamily(),
-				  tabFont.getSize()
-		);
-
+	public static Tab createStyledTab(String tabTitle, Font font) {
 		// Create new tab:
 		Tab newTab = new Tab();
 
 		// Apply style for tab title:
-		newTab.setStyle(style);
+		newTab.setStyle(prepFontCSS(font));
 
 		// Set tab title:
 		newTab.setText(tabTitle);
