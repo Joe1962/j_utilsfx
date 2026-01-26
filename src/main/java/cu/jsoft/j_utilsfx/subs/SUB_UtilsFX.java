@@ -4,6 +4,8 @@
  */
 package cu.jsoft.j_utilsfx.subs;
 
+import cu.jsoft.j_utilsfx.global.types.TYP_retLoadFXML;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -18,6 +20,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Accordion;
@@ -37,6 +40,7 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -47,6 +51,17 @@ import javafx.util.StringConverter;
  * @author joe1962
  */
 public class SUB_UtilsFX {
+
+	public static TYP_retLoadFXML loadFXML(Class callingClass, Pane container, String path, String parentID, double opacity, Font font) throws IOException {
+		FXMLLoader loader = new FXMLLoader(callingClass.getResource(path));
+		Parent node = loader.load();
+		node.setOpacity(opacity);
+		node.setId(parentID);
+		container.getChildren().add(node);
+		setDefaultFontToAll(node, font);
+		Object controller = loader.getController();
+		return new TYP_retLoadFXML(node, controller);
+	}
 
 	public static String getTableColumnTextAlignment(String field_datatype) {
 		switch (field_datatype.toLowerCase()) {
@@ -254,6 +269,7 @@ public class SUB_UtilsFX {
 	/**
 	 * Convenience method to schedules a focus request for a text input control with default attempts (50 frames ~= 0.8 seconds at
 	 * 60fps)
+	 * @param control
 	 */
 	public static void scheduleFocusRequest(TextInputControl control) {
 		scheduleFocusRequest(control, 50);
@@ -286,6 +302,7 @@ public class SUB_UtilsFX {
 	/**
 	 * Convenience method to schedules a focus request with selection for a text input control with default attempts (50 frames ~= 0.8 seconds at
 	 * 60fps)
+	 * @param control
 	 */
 	public static void scheduleFocusRequestAndSelectAll(TextInputControl control) {
 		scheduleFocusRequestAndSelectAll(control, 50);

@@ -1,5 +1,9 @@
-CHANGELOG j_utilsfx-lite:
+CHANGELOG j_utilsfx:
 
+260126:
+	SUB_PopupsFX: set Modality to WINDOW_MODAL on all alerts and dialogs to avoids moving owner window.
+	global.types: added TYP_retLoadFXML for use in SUB_UtilsFX.loadFXML.
+	SUB_UtilsFX: added loadFXML to simplify loading FXML files.
 260113:
 	SUB_UtilsFX: cleaned up unused imports.
 	SUB_UtilsFX: deleted applyFontToNode.

@@ -136,6 +136,7 @@ public class SUB_PopupsFX {
 		dialog.setTitle(title != null ? title : "INTRODUZCA...");
 		dialog.setHeaderText(header);
 		dialog.setContentText(content != null ? content : EMPTY_STRING);
+		dialog.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		dialog.initOwner(parent);
 
 		Stage stage = (Stage) dialog.getDialogPane().getScene().getWindow();
@@ -161,6 +162,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "AVISO...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -183,6 +185,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "AVISO...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -212,6 +215,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "AVISO...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -238,6 +242,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "ALERTA...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -260,6 +265,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "ALERTA...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -289,6 +295,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "ALERTA...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -315,6 +322,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "ERROR...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -337,6 +345,7 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "ERROR...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
 		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
@@ -366,6 +375,8 @@ public class SUB_PopupsFX {
 		alert.setTitle(title != null ? title : "ERROR...");
 		alert.setHeaderText(header);
 		alert.setContentText(content != null ? content : EMPTY_STRING);
+		alert.initModality(Modality.WINDOW_MODAL);			// Avoids moving owner window.
+		alert.initOwner(parent);
 
 		Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 		stage.setAlwaysOnTop(true);
