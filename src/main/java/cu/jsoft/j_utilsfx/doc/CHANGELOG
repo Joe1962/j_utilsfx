@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260218:
+	SUB_UtilsFX.createStyledTab: added param String tabNick, saving it to tabs UserData.
 260126:
 	SUB_PopupsFX: set Modality to WINDOW_MODAL on all alerts and dialogs to avoids moving owner window.
 	global.types: added TYP_retLoadFXML for use in SUB_UtilsFX.loadFXML.

@@ -501,12 +501,15 @@ public class SUB_UtilsFX {
 		}
 	}
 
-	public static Tab createStyledTab(String tabTitle, Font font) {
+	public static Tab createStyledTab(String tabNick, String tabTitle, Font font) {
 		// Create new tab:
 		Tab newTab = new Tab();
 
 		// Apply style for tab title:
 		newTab.setStyle(prepFontCSS(font));
+
+		// Save tab NICK:
+		newTab.setUserData(tabNick);
 
 		// Set tab title:
 		newTab.setText(tabTitle);
