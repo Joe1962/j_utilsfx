@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260220:
+	Added TYP_YingYangFiltersState, SUB_Utils.YingYang2Activestate, for ying-yang type (ie: active inactive) checkboxes.
 260218:
 	SUB_UtilsFX.createStyledTab: added param String tabNick, saving it to tabs UserData.
 260126:

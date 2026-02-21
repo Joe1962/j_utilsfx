@@ -4,6 +4,8 @@
  */
 package cu.jsoft.j_utilsfx.subs;
 
+import cu.jsoft.j_utilsfx.global.CONSTS.ACTIVEState;
+import cu.jsoft.j_utilsfx.global.types.TYP_YingYangFiltersState;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -145,6 +147,22 @@ public class SUB_Utils {
 			return false;
 		}
 		return true;
+	}
+
+	public static ACTIVEState YingYang2Activestate(TYP_YingYangFiltersState yyfilterStates) {
+		if (yyfilterStates.isYingFilterState()) {
+			if (yyfilterStates.isYangFilterState()) {
+				return ACTIVEState.BOTH;					// both selected...
+			} else {
+				return ACTIVEState.ONLYACTIVE;			// only active selected...
+			}
+		} else {
+			if (yyfilterStates.isYangFilterState()) {
+				return ACTIVEState.ONLYINACTIVE;		// only inactive selected...
+			} else {
+				return ACTIVEState.NONE;					// none selected, STUPID condition...
+			}
+		}
 	}
 
 }
