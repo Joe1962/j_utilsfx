@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260302:
+	SUB_UtilsFX: added doDatePickerHighlightDates, DatePickerHighlightDates is now private.
 260220:
 	Added TYP_YingYangFiltersState, SUB_Utils.YingYang2Activestate, for ying-yang type (ie: active inactive) checkboxes.
 260218:

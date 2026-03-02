@@ -4,6 +4,7 @@
  */
 package cu.jsoft.j_utilsfx.subs;
 
+import cu.jsoft.j_utilsfx.global.CONSTS;
 import cu.jsoft.j_utilsfx.global.types.TYP_retLoadFXML;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -308,7 +309,20 @@ public class SUB_UtilsFX {
 		scheduleFocusRequestAndSelectAll(control, 50);
 	}
 
-	public static void DatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, String cssStyle, String toolTip) {
+	public static void doDatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, boolean cssIsDarkTheme, String cssStyle, String toolTip) {
+		StringBuilder cssHighlight = new StringBuilder();
+		cssHighlight.append(cssStyle);
+		cssHighlight.append(" ");
+		if (cssIsDarkTheme) {
+			cssHighlight.append(CONSTS.cssDarkCalendarHighlite);
+		} else {
+			cssHighlight.append(CONSTS.cssLightCalendarHighlite);
+		}
+
+		DatePickerHighlightDates(datePicker, DatesToHighlight, cssHighlight.toString(), toolTip);
+	}
+
+	private static void DatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, String cssStyle, String toolTip) {
 		// Apply highlighting
 		datePicker.setDayCellFactory(picker -> new DateCell() {
 			@Override
