@@ -13,15 +13,21 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Accordion;
@@ -30,18 +36,25 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Skin;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
@@ -268,8 +281,9 @@ public class SUB_UtilsFX {
 	}
 
 	/**
-	 * Convenience method to schedules a focus request for a text input control with default attempts (50 frames ~= 0.8 seconds at
-	 * 60fps)
+	 * Convenience method to schedules a focus request for a text input control
+	 * with default attempts (50 frames ~= 0.8 seconds at 60fps)
+	 *
 	 * @param control
 	 */
 	public static void scheduleFocusRequest(TextInputControl control) {
@@ -301,8 +315,9 @@ public class SUB_UtilsFX {
 	}
 
 	/**
-	 * Convenience method to schedules a focus request with selection for a text input control with default attempts (50 frames ~= 0.8 seconds at
-	 * 60fps)
+	 * Convenience method to schedules a focus request with selection for a text
+	 * input control with default attempts (50 frames ~= 0.8 seconds at 60fps)
+	 *
 	 * @param control
 	 */
 	public static void scheduleFocusRequestAndSelectAll(TextInputControl control) {
@@ -481,7 +496,7 @@ public class SUB_UtilsFX {
 
 		// Append to existing style
 		String existingStyle = node.getStyle();
-		node.setStyle(fontCSS + (existingStyle != null && !existingStyle.isEmpty() ? " " + existingStyle : ""));
+		node.setStyle((existingStyle != null && !existingStyle.isEmpty() ? " " + existingStyle : "") + fontCSS);
 	}
 
 	private static void styleTabPaneTitles(TabPane tabPane, Font font) {
@@ -530,6 +545,175 @@ public class SUB_UtilsFX {
 
 		// Return new styled tab:
 		return newTab;
+	}
+
+	/**
+	 * Creates an HBox containing labels that mirror the visible columns of the
+	 * given TableView. The HBox can be placed below the table as a totals row.
+	 *
+	 * @param tableView the TableView whose columns to mirror
+	 * @param syncScroll
+	 * @return an HBox with labels, ready to be styled and updated
+	 */
+	public static ScrollPane createTotalsBar(TableView<?> tableView, boolean syncScroll) {
+		HBox totalsBar = new HBox();
+		totalsBar.getStyleClass().add("totals-bar");
+		totalsBar.setSpacing(0);
+
+		List<TableColumn<?, ?>> visibleCols = tableView.getColumns().stream()
+				  .filter(TableColumn::isVisible)
+				  .collect(Collectors.toList());
+
+		for (int i = 0; i < visibleCols.size(); i++) {
+			TableColumn<?, ?> col = visibleCols.get(i);
+			Label label = new Label();
+			label.prefWidthProperty().bind(col.widthProperty());
+			label.setMinWidth(Region.USE_PREF_SIZE);
+			label.setMaxWidth(Region.USE_PREF_SIZE);
+
+			// Copy alignment from column style or default to center-right
+			String colStyle = col.getStyle();
+			if (colStyle != null && colStyle.contains("-fx-alignment")) {
+				label.setStyle(colStyle);
+			} else {
+				label.setAlignment(Pos.CENTER_RIGHT);
+			}
+
+			// Add right border for all but last
+			if (i < visibleCols.size() - 1) {
+				label.setStyle(label.getStyle()
+						  + ";-fx-border-color: transparent #ccc transparent transparent;"
+						  + "-fx-border-width: 0 1px 0 0;-fx-border-style: solid;");
+			}
+
+			label.setPadding(new Insets(5, 8, 5, 8));
+			totalsBar.getChildren().add(label);
+		}
+
+		ScrollPane scrollPane = new ScrollPane(totalsBar);
+		scrollPane.setFitToHeight(true);
+		scrollPane.setFitToWidth(false);
+		// Hide the horizontal scrollbar – it will still scroll via binding
+		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		//scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+		scrollPane.getStyleClass().add("totals-scroll-pane");
+
+		// Disable the vertical scrollbar (visible but not scrollable)
+		Platform.runLater(() -> {
+			Node vScrollBar = scrollPane.lookup(".scroll-bar:vertical");
+			if (vScrollBar instanceof ScrollBar) {
+				((ScrollBar) vScrollBar).setDisable(true);
+			}
+		});
+
+		// Remove any default background/border
+		scrollPane.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+
+		scrollPane.prefWidthProperty().bind(tableView.widthProperty());
+
+		if (syncScroll) {
+			synchronizeTotalsScroll(tableView, scrollPane);
+		}
+
+		return scrollPane;
+	}
+
+	private static void synchronizeTotalsScroll(TableView<?> tableView, ScrollPane totalsScrollPane) {
+		Platform.runLater(() -> {
+			Node hScrollBarNode = tableView.lookup(".scroll-bar:horizontal");
+			if (hScrollBarNode instanceof ScrollBar tableHScroll) {
+				attachScrollSync(tableView, totalsScrollPane, tableHScroll);
+			} else {
+				// Store a reference to the listener so we can remove it later
+				ChangeListener<Skin<?>> skinListener = new ChangeListener<Skin<?>>() {
+					@Override
+					public void changed(ObservableValue<? extends Skin<?>> obs, Skin<?> oldSkin, Skin<?> newSkin) {
+						Platform.runLater(() -> {
+							Node sb = tableView.lookup(".scroll-bar:horizontal");
+							if (sb instanceof ScrollBar scrollBar) {
+								attachScrollSync(tableView, totalsScrollPane, scrollBar);
+								// Now remove this listener using the stored reference
+								tableView.skinProperty().removeListener(this);
+							}
+						});
+					}
+				};
+				tableView.skinProperty().addListener(skinListener);
+			}
+		});
+	}
+
+	private static void attachScrollSync(TableView<?> tableView, ScrollPane totalsScrollPane, ScrollBar tableHScroll) {
+		HBox totalsBar = (HBox) totalsScrollPane.getContent();
+
+		// Force layout to get accurate widths
+		totalsBar.applyCss();
+		totalsBar.layout();
+
+		// Bind totals scroll pane width to table's width (viewport matches)
+		totalsScrollPane.prefWidthProperty().bind(tableView.widthProperty());
+
+		// Listener to update totals scroll position when table scrolls
+		tableHScroll.valueProperty().addListener((obs, oldVal, newVal) -> {
+			double tableMax = tableHScroll.getMax();
+			if (tableMax <= 0) {
+				return;
+			}
+
+			double proportion = newVal.doubleValue() / tableMax; // assuming min=0
+			// Clamp proportion to [0,1]
+			proportion = Math.max(0, Math.min(1, proportion));
+
+			// Set totals hvalue directly
+			totalsScrollPane.setHvalue(proportion);
+		});
+
+		// Also trigger when table's scrollable width changes (columns resized)
+		tableHScroll.maxProperty().addListener((obs, oldMax, newMax) -> {
+			// Force totals bar layout to recompute its content width
+			Platform.runLater(() -> {
+				totalsBar.applyCss();
+				totalsBar.layout();
+				// Optionally, reapply current scroll position
+				double proportion = tableHScroll.getValue() / tableHScroll.getMax();
+				totalsScrollPane.setHvalue(proportion);
+			});
+		});
+
+		// Listen to column width changes to keep totals bar content width updated
+		for (TableColumn<?, ?> col : tableView.getColumns()) {
+			col.widthProperty().addListener((obs, oldW, newW) -> {
+				Platform.runLater(() -> {
+					totalsBar.applyCss();
+					totalsBar.layout();
+				});
+			});
+		}
+	}
+
+	/**
+	 * Updates the text of each label in the totals bar with the provided values.
+	 * Values array must correspond to the order of visible columns.
+	 *
+	 * @param totalsScrollPane
+	 * @param columnValues an array of strings to set on each label (must match
+	 * column count)
+	 */
+	public static void updateTotals(ScrollPane totalsScrollPane, String... columnValues) {
+		// Get the content of the ScrollPane, which should be the HBox
+		Node content = totalsScrollPane.getContent();
+		if (!(content instanceof HBox totalsBar)) {
+			return; // or throw an exception
+		}
+
+		int childIndex = 0;
+		for (Node node : totalsBar.getChildren()) {
+			if (node instanceof Label && childIndex < columnValues.length) {
+				((Label) node).setText(columnValues[childIndex]);
+				childIndex++;
+			}
+		}
 	}
 
 }

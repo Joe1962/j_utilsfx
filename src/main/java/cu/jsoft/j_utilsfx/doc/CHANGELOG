@@ -1,5 +1,8 @@
 CHANGELOG j_utilsfx:
 
+260418:
+	SUB_UtilsFX: implemented updateTotals to fill the totals bar labels.
+	SUB_UtilsFX: implemented createTotalsBar with helpers synchronizeTotalsScroll, attachScrollSync.
 260302:
 	SUB_UtilsFX: added doDatePickerHighlightDates, DatePickerHighlightDates is now private.
 260220:
