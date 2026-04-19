@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260419:
+	SUB_UtilsFX.createTotalsBar: Fixes to reduce excessive totals bar height.
 260418:
 	SUB_UtilsFX: implemented updateTotals to fill the totals bar labels.
 	SUB_UtilsFX: implemented createTotalsBar with helpers synchronizeTotalsScroll, attachScrollSync.

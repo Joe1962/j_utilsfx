@@ -586,13 +586,19 @@ public class SUB_UtilsFX {
 						  + "-fx-border-width: 0 1px 0 0;-fx-border-style: solid;");
 			}
 
-			label.setPadding(new Insets(5, 8, 5, 8));
+			//label.setPadding(new Insets(5, 8, 5, 8));
+			label.setPadding(new Insets(0, 3, 0, 3));
 			totalsBar.getChildren().add(label);
 		}
 
 		ScrollPane scrollPane = new ScrollPane(totalsBar);
-		scrollPane.setFitToHeight(true);
+		//scrollPane.setFitToHeight(true);
+		scrollPane.setFitToHeight(false);
 		scrollPane.setFitToWidth(false);
+		scrollPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+		scrollPane.setMinHeight(Region.USE_PREF_SIZE);
+		scrollPane.setMaxHeight(Region.USE_PREF_SIZE);
+
 		// Hide the horizontal scrollbar – it will still scroll via binding
 		scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 		//scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
