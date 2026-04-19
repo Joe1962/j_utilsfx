@@ -1,6 +1,9 @@
 CHANGELOG j_utilsfx:
 
 260419:
+	SUB_UtilsFX: Overloaded updateTotals uses Map to update only needed Labels by UserData.
+	SUB_UtilsFX: Added overloaded updateTotals with Map parameter for totals.
+	SUB_UtilsFX.createTotalsBar: Sets column's UserData (field name) as Label's UserData.
 	SUB_UtilsFX.createTotalsBar: Fixes to reduce excessive totals bar height.
 260418:
 	SUB_UtilsFX: implemented updateTotals to fill the totals bar labels.

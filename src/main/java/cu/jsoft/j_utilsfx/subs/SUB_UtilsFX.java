@@ -13,7 +13,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -571,6 +573,9 @@ public class SUB_UtilsFX {
 			label.setMinWidth(Region.USE_PREF_SIZE);
 			label.setMaxWidth(Region.USE_PREF_SIZE);
 
+			// Joe1962: this is for use in updateTotals:
+			label.setUserData(col.getUserData());
+
 			// Copy alignment from column style or default to center-right
 			String colStyle = col.getStyle();
 			if (colStyle != null && colStyle.contains("-fx-alignment")) {
@@ -718,6 +723,33 @@ public class SUB_UtilsFX {
 			if (node instanceof Label && childIndex < columnValues.length) {
 				((Label) node).setText(columnValues[childIndex]);
 				childIndex++;
+			}
+		}
+	}
+
+	/**
+	 * Updates the totals bar labels using a map of field names to total values.
+	 * Only labels whose userData matches a key in the map will be updated.
+	 *
+	 * @param totalsScrollPane the ScrollPane containing the totals bar HBox
+	 * @param totalsMap a map where keys are field names (matching label's
+	 * userData) and values are the total strings to display
+	 */
+	public static void updateTotals(ScrollPane totalsScrollPane, Map<String, String> totalsMap) {
+		Node content = totalsScrollPane.getContent();
+		if (!(content instanceof HBox totalsBar)) {
+			return;
+		}
+
+		for (Node node : totalsBar.getChildren()) {
+			if (node instanceof Label label) {
+				Object userData = label.getUserData();
+				if (userData instanceof String fieldName) {
+					String value = totalsMap.get(fieldName);
+					if (value != null) {
+						label.setText(value);
+					}
+				}
 			}
 		}
 	}
