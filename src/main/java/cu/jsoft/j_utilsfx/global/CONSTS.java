@@ -25,6 +25,9 @@ public class CONSTS {
 	public static final String PERIOD = ".";
 	public static final String DOUBLE_QUOTE = "\"";
 
+	// Time constants:
+	public static final long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+
 	// These are my own:
 	public static final boolean PASSES = true;
 	public static final boolean FAILS = false;

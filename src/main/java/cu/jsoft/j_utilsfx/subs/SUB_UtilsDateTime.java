@@ -4,6 +4,7 @@
  */
 package cu.jsoft.j_utilsfx.subs;
 
+import static cu.jsoft.j_utilsfx.global.CONSTS.MILLISECONDS_IN_DAY;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,6 @@ import java.util.Date;
  * @author informaticos
  */
 public class SUB_UtilsDateTime {
-	private static final long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 
 	/**
 	 *

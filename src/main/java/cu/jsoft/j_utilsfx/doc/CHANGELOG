@@ -1,5 +1,13 @@
 CHANGELOG j_utilsfx:
 
+260422:
+	SUB_UtilsDateTime.DiffInDays: : Now uses CONSTS.MILLISECONDS_IN_DAY.
+	SUB_UtilsDateTime: removed MILLISECONDS_IN_DAY.
+	CONSTS: Added MILLISECONDS_IN_DAY.
+	CLS_Formatters: removed MILLISECONDS_IN_DAY, getTodayString.
+	CLS_Formatters: now uses 'static' initializer block, no need to instantiate.
+	CLS_Formatters: Added FormatCurrNoGrouping.
+	CLS_Formatters: now sets FormatCurr currency to US locale.
 260419:
 	SUB_UtilsFX: Overloaded updateTotals uses Map to update only needed Labels by UserData.
 	SUB_UtilsFX: Added overloaded updateTotals with Map parameter for totals.
