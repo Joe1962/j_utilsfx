@@ -1,5 +1,9 @@
 CHANGELOG j_utilsfx:
 
+260502:
+	SUB_UtilsFX.doDatePickerHighlightDates: changed from public to private.
+	SUB_UtilsFX: added setupCalendarHighliting adapted from HJRMSFX.
+	SUB_UtilsFX.DatePickerHighlightDates: wrapped in Platform.runLater to avoid DatePicker error.
 260422:
 	SUB_UtilsDateTime.DiffInDays: : Now uses CONSTS.MILLISECONDS_IN_DAY.
 	SUB_UtilsDateTime: removed MILLISECONDS_IN_DAY.

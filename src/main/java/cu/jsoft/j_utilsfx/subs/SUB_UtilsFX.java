@@ -326,7 +326,20 @@ public class SUB_UtilsFX {
 		scheduleFocusRequestAndSelectAll(control, 50);
 	}
 
-	public static void doDatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, boolean cssIsDarkTheme, String cssStyle, String toolTip) {
+	public static void setupCalendarHighliting(DatePicker DatePickerTo, DatePicker DatePickerFrom, ArrayList<LocalDate> DatesToHighlight, boolean cssIsDarkTheme, String toolTip) {
+		if (DatePickerFrom != null) {
+			if (!DatePickerFrom.isDisabled()) {
+				doDatePickerHighlightDates(DatePickerFrom, DatesToHighlight, cssIsDarkTheme, "", toolTip);
+				if (DatePickerTo != null) {
+					if (!DatePickerTo.isDisabled()) {
+						doDatePickerHighlightDates(DatePickerTo, DatesToHighlight, cssIsDarkTheme, "", toolTip);
+					}
+				}
+			}
+		}
+	}
+
+	private static void doDatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, boolean cssIsDarkTheme, String cssStyle, String toolTip) {
 		StringBuilder cssHighlight = new StringBuilder();
 		cssHighlight.append(cssStyle);
 		cssHighlight.append(" ");
@@ -340,6 +353,7 @@ public class SUB_UtilsFX {
 	}
 
 	private static void DatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, String cssStyle, String toolTip) {
+		Platform.runLater(() -> {
 		// Apply highlighting
 		datePicker.setDayCellFactory(picker -> new DateCell() {
 			@Override
@@ -350,6 +364,7 @@ public class SUB_UtilsFX {
 					setTooltip(new Tooltip(toolTip));
 				}
 			}
+		});
 		});
 	}
 
