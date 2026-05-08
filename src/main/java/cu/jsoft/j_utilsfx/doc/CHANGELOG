@@ -1,5 +1,24 @@
 CHANGELOG j_utilsfx:
 
+260508:
+	SUB_UtilsFX.collapse: now checks for hideH to set Width or Height.
+	SUB_UtilsFX.expand: now checks for hideH to set Width or Height.
+	SUB_UtilsFX.collapse: Renamed PEEK_WIDTH to SIZE_HIDDEN.
+	SUB_UtilsFX.expand: Renamed NORMAL_WIDTH to SIZE_NORMAL.
+	SUB_UtilsFX: Added hideH param to setupMouseHandlers, collapse, expand.
+	SUB_UtilsFX.expand: removed check for NORMAL_WIDTH > 0.
+	SUB_UtilsFX.setupMouseHandlers: Renamed NORMAL_WIDTH to SIZE_NORMAL.
+	SUB_UtilsFX.setupMouseHandlers: Renamed PEEK_WIDTH to SIZE_HIDDEN.
+	SUB_UtilsFX.SidebarAutoHider: Renamed rawPeek to rawSizeHidden, PEEK_WIDTH to SIZE_HIDDEN.
+	SUB_UtilsFX.SidebarAutoHider: Renamed MAX_PEEK_WIDTH to MAX_SIZE_HIDDEN.
+	SUB_UtilsFX.SidebarAutoHider: Renamed MIN_PEEK_WIDTH to MIN_SIZE_HIDDEN.
+	SUB_UtilsFX.SidebarAutoHider: Renamed PEEK_WIDTH_FRACTION to SIZE_HIDDEN_FRACTION.
+	SUB_UtilsFX.SidebarAutoHider: Renamed NORMAL_WIDTH to SIZE_NORMAL, for HEIGHT or WIDTH according to hideH parameter.
+	SUB_UtilsFX: Added vertical autohiding capability.
+	Removed code to handle NORMAL_WIDTH = 0, now expects correct value or Region.USE_COMPUTED_SIZE, Double.MAX_VALUE.
+260506:
+	SUB_UtilsFX: Implemented methods for horizontally autohiding a region.
+	SUB_UtilsFX: Reorganized code by SECTIONs.
 260502:
 	SUB_UtilsFX.doDatePickerHighlightDates: changed from public to private.
 	SUB_UtilsFX: added setupCalendarHighliting adapted from HJRMSFX.

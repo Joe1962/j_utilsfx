@@ -13,7 +13,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,7 +21,10 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -30,6 +32,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Accordion;
@@ -50,6 +53,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ScrollEvent;
@@ -59,6 +63,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
@@ -67,7 +73,11 @@ import javafx.util.StringConverter;
  * @author joe1962
  */
 public class SUB_UtilsFX {
+	private static PauseTransition hoverTimer;
 
+	//
+	//
+	// SECTION FXML utilities:
 	public static TYP_retLoadFXML loadFXML(Class callingClass, Pane container, String path, String parentID, double opacity, Font font) throws IOException {
 		FXMLLoader loader = new FXMLLoader(callingClass.getResource(path));
 		Parent node = loader.load();
@@ -79,6 +89,9 @@ public class SUB_UtilsFX {
 		return new TYP_retLoadFXML(node, controller);
 	}
 
+	//
+	//
+	// SECTION Column Text Alignment:
 	public static String getTableColumnTextAlignment(String field_datatype) {
 		switch (field_datatype.toLowerCase()) {
 			case "boolean":
@@ -102,6 +115,9 @@ public class SUB_UtilsFX {
 		}
 	}
 
+	//
+	//
+	// SECTION ComboBox / ScrollBox mouse scrolling:
 	public static void setupComboBoxScrolling(ComboBox<?> comboBox) {
 		comboBox.addEventFilter(ScrollEvent.SCROLL, event -> {
 			handleComboBoxScroll(event, comboBox);
@@ -162,6 +178,9 @@ public class SUB_UtilsFX {
 		event.consume();
 	}
 
+	//
+	//
+	// SECTION StackPane Children stacking:
 	public static void toFrontHelper(StackPane stp, String PaneID) {
 		for (int i = 0; i < stp.getChildrenUnmodifiable().size(); i++) {
 			if (stp.getChildrenUnmodifiable().get(i).getId().equals(PaneID)) {
@@ -180,6 +199,9 @@ public class SUB_UtilsFX {
 		}
 	}
 
+	//
+	//
+	// SECTION Tooltip Timers:
 	/**
 	 * {@link ToolTipDefaultsFixer}
 	 *
@@ -215,6 +237,9 @@ public class SUB_UtilsFX {
 		return true;
 	}
 
+	//
+	//
+	// SECTION Fades:
 	public static void doFadeInOut(Node fromNode, Node toNode, Duration fadeOutDelay, Duration fadeOutDuration, Duration fadeInDelay, Duration fadeInDuration) {
 		FadeTransition fadeOut = new FadeTransition(fadeOutDuration);
 		fadeOut.setFromValue(1.0);
@@ -257,6 +282,9 @@ public class SUB_UtilsFX {
 		});
 	}
 
+	//
+	//
+	// SECTION Scheduled Focus Requests:
 	/**
 	 * Schedules a focus request for a text input control
 	 *
@@ -326,6 +354,9 @@ public class SUB_UtilsFX {
 		scheduleFocusRequestAndSelectAll(control, 50);
 	}
 
+	//
+	//
+	// SECTION DatePicker Calendar Highliting:
 	public static void setupCalendarHighliting(DatePicker DatePickerTo, DatePicker DatePickerFrom, ArrayList<LocalDate> DatesToHighlight, boolean cssIsDarkTheme, String toolTip) {
 		if (DatePickerFrom != null) {
 			if (!DatePickerFrom.isDisabled()) {
@@ -354,17 +385,17 @@ public class SUB_UtilsFX {
 
 	private static void DatePickerHighlightDates(DatePicker datePicker, ArrayList<LocalDate> DatesToHighlight, String cssStyle, String toolTip) {
 		Platform.runLater(() -> {
-		// Apply highlighting
-		datePicker.setDayCellFactory(picker -> new DateCell() {
-			@Override
-			public void updateItem(LocalDate date, boolean empty) {
-				super.updateItem(date, empty);
-				if (date != null && !empty && DatesToHighlight.contains(date)) {
-					setStyle(cssStyle);
-					setTooltip(new Tooltip(toolTip));
+			// Apply highlighting
+			datePicker.setDayCellFactory(picker -> new DateCell() {
+				@Override
+				public void updateItem(LocalDate date, boolean empty) {
+					super.updateItem(date, empty);
+					if (date != null && !empty && DatesToHighlight.contains(date)) {
+						setStyle(cssStyle);
+						setTooltip(new Tooltip(toolTip));
+					}
 				}
-			}
-		});
+			});
 		});
 	}
 
@@ -396,6 +427,9 @@ public class SUB_UtilsFX {
 		});
 	}
 
+	//
+	//
+	// SECTION Default Font:
 	public static void setDefaultFontToAll(Parent parent, Font font) {
 		// Apply to this node
 		applyFontViaCSS(parent, font);
@@ -547,6 +581,9 @@ public class SUB_UtilsFX {
 		}
 	}
 
+	//
+	//
+	// SECTION Styled Tabs::
 	public static Tab createStyledTab(String tabNick, String tabTitle, Font font) {
 		// Create new tab:
 		Tab newTab = new Tab();
@@ -564,6 +601,9 @@ public class SUB_UtilsFX {
 		return newTab;
 	}
 
+	//
+	//
+	// SECTION TableView Totals Bar:
 	/**
 	 * Creates an HBox containing labels that mirror the visible columns of the
 	 * given TableView. The HBox can be placed below the table as a totals row.
@@ -766,6 +806,107 @@ public class SUB_UtilsFX {
 					}
 				}
 			}
+		}
+	}
+
+	//
+	//
+	// SECTION Autohiding:
+	public static void SidebarAutoHider(
+			  Stage myStage, 
+			  Region sidebar, 
+			  ToggleButton AutoHideSelector, 
+			  boolean hideH, 
+			  double SIZE_HIDDEN_FRACTION, 
+			  double SIZE_NORMAL, 
+			  double hoverDelayMS) {
+
+		int MIN_SIZE_HIDDEN = 8;
+		int MAX_SIZE_HIDDEN = 25;
+
+		// Get current application screen pixels and calc bounds:
+		Rectangle2D bounds = Screen.getScreensForRectangle(new Rectangle2D(
+				  myStage.getX(), 
+				  myStage.getY(), 
+				  myStage.getWidth(), 
+				  myStage.getHeight()
+		)).getFirst().getVisualBounds();
+
+		double rawSizeHidden;
+		if (hideH) {
+			rawSizeHidden = bounds.getWidth() * SIZE_HIDDEN_FRACTION;
+		} else {
+			rawSizeHidden = bounds.getHeight()* SIZE_HIDDEN_FRACTION;
+		}
+
+		double SIZE_HIDDEN = Math.min(Math.max(rawSizeHidden, MIN_SIZE_HIDDEN), MAX_SIZE_HIDDEN);
+
+		// Listener directly on the toggle button's selected property
+		AutoHideSelector.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+			if (isSelected) {
+				setupMouseHandlers(sidebar, SIZE_HIDDEN, SIZE_NORMAL, hoverDelayMS, hideH);
+				//collapse(sidebar, autoHideActive, PEEK_WIDTH);
+			} else {
+				removeMouseHandlers(sidebar);
+				expand(sidebar, SIZE_NORMAL, hideH);			// restore normal size
+			}
+		});
+
+		// To auto‑hide on call if set on FXML load or controller init:
+		if (AutoHideSelector.isSelected()) {
+			setupMouseHandlers(sidebar, SIZE_HIDDEN, SIZE_NORMAL, hoverDelayMS, hideH);
+			collapse(sidebar, SIZE_HIDDEN, hideH);
+		}
+	}
+
+	private static void setupMouseHandlers(Region sidebar, double SIZE_HIDDEN, double SIZE_NORMAL, double hoverDelayMS, boolean hideH) {
+		// Create a PauseTransition that will expand after a delay
+		PauseTransition hoverDelay = new PauseTransition(Duration.millis(hoverDelayMS));
+		hoverDelay.setOnFinished(e -> expand(sidebar, SIZE_NORMAL, hideH));
+
+		sidebar.setOnMouseEntered(e -> {
+			// Cancel any pending expansion (if mouse re-enters quickly)
+			hoverDelay.stop();
+			hoverDelay.playFromStart();
+		});
+ 
+		sidebar.setOnMouseExited(e -> {
+			// Cancel the pending expansion and collapse immediately
+			hoverDelay.stop();
+			collapse(sidebar, SIZE_HIDDEN, hideH);
+		});
+	}
+
+	private static void removeMouseHandlers(Region sidebar) {
+		sidebar.setOnMouseEntered(null);
+		sidebar.setOnMouseExited(null);
+	}
+
+	private static void collapse(Region sidebar, double SIZE_HIDDEN, boolean hideH) {
+		for (Node childNode : sidebar.getChildrenUnmodifiable()) {
+			childNode.setVisible(false);
+		}
+
+		if (hideH) {
+			sidebar.setPrefWidth(SIZE_HIDDEN);
+			sidebar.setMinWidth(SIZE_HIDDEN);
+		} else {
+			sidebar.setPrefHeight(SIZE_HIDDEN);
+			sidebar.setMinHeight(SIZE_HIDDEN);
+		}
+	}
+
+	private static void expand(Region sidebar, double SIZE_NORMAL, boolean hideH) {
+		for (Node childNode : sidebar.getChildrenUnmodifiable()) {
+			childNode.setVisible(true);
+		}
+
+		if (hideH) {
+			sidebar.setPrefWidth(SIZE_NORMAL);
+			sidebar.setMinWidth(SIZE_NORMAL);
+		} else {
+			sidebar.setPrefHeight(SIZE_NORMAL);
+			sidebar.setMinHeight(SIZE_NORMAL);
 		}
 	}
 
