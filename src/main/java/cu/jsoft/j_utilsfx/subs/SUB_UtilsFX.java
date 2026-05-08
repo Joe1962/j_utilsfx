@@ -812,17 +812,17 @@ public class SUB_UtilsFX {
 	//
 	//
 	// SECTION Autohiding:
-	public static void SidebarAutoHider(
+	public static void RegionAutoHider(
 			  Stage myStage, 
-			  Region sidebar, 
+			  Region toHide, 
 			  ToggleButton AutoHideSelector, 
 			  boolean hideH, 
 			  double SIZE_HIDDEN_FRACTION, 
 			  double SIZE_NORMAL, 
 			  double hoverDelayMS) {
 
-		int MIN_SIZE_HIDDEN = 8;
-		int MAX_SIZE_HIDDEN = 25;
+		int MIN_SIZE_HIDDEN = 15;
+		int MAX_SIZE_HIDDEN = 50;
 
 		// Get current application screen pixels and calc bounds:
 		Rectangle2D bounds = Screen.getScreensForRectangle(new Rectangle2D(
@@ -844,69 +844,69 @@ public class SUB_UtilsFX {
 		// Listener directly on the toggle button's selected property
 		AutoHideSelector.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
 			if (isSelected) {
-				setupMouseHandlers(sidebar, SIZE_HIDDEN, SIZE_NORMAL, hoverDelayMS, hideH);
+				setupMouseHandlers(toHide, SIZE_HIDDEN, SIZE_NORMAL, hoverDelayMS, hideH);
 				//collapse(sidebar, autoHideActive, PEEK_WIDTH);
 			} else {
-				removeMouseHandlers(sidebar);
-				expand(sidebar, SIZE_NORMAL, hideH);			// restore normal size
+				removeMouseHandlers(toHide);
+				expand(toHide, SIZE_NORMAL, hideH);			// restore normal size
 			}
 		});
 
 		// To auto‑hide on call if set on FXML load or controller init:
 		if (AutoHideSelector.isSelected()) {
-			setupMouseHandlers(sidebar, SIZE_HIDDEN, SIZE_NORMAL, hoverDelayMS, hideH);
-			collapse(sidebar, SIZE_HIDDEN, hideH);
+			setupMouseHandlers(toHide, SIZE_HIDDEN, SIZE_NORMAL, hoverDelayMS, hideH);
+			collapse(toHide, SIZE_HIDDEN, hideH);
 		}
 	}
 
-	private static void setupMouseHandlers(Region sidebar, double SIZE_HIDDEN, double SIZE_NORMAL, double hoverDelayMS, boolean hideH) {
+	private static void setupMouseHandlers(Region toHide, double SIZE_HIDDEN, double SIZE_NORMAL, double hoverDelayMS, boolean hideH) {
 		// Create a PauseTransition that will expand after a delay
 		PauseTransition hoverDelay = new PauseTransition(Duration.millis(hoverDelayMS));
-		hoverDelay.setOnFinished(e -> expand(sidebar, SIZE_NORMAL, hideH));
+		hoverDelay.setOnFinished(e -> expand(toHide, SIZE_NORMAL, hideH));
 
-		sidebar.setOnMouseEntered(e -> {
+		toHide.setOnMouseEntered(e -> {
 			// Cancel any pending expansion (if mouse re-enters quickly)
 			hoverDelay.stop();
 			hoverDelay.playFromStart();
 		});
  
-		sidebar.setOnMouseExited(e -> {
+		toHide.setOnMouseExited(e -> {
 			// Cancel the pending expansion and collapse immediately
 			hoverDelay.stop();
-			collapse(sidebar, SIZE_HIDDEN, hideH);
+			collapse(toHide, SIZE_HIDDEN, hideH);
 		});
 	}
 
-	private static void removeMouseHandlers(Region sidebar) {
-		sidebar.setOnMouseEntered(null);
-		sidebar.setOnMouseExited(null);
+	private static void removeMouseHandlers(Region toHide) {
+		toHide.setOnMouseEntered(null);
+		toHide.setOnMouseExited(null);
 	}
 
-	private static void collapse(Region sidebar, double SIZE_HIDDEN, boolean hideH) {
-		for (Node childNode : sidebar.getChildrenUnmodifiable()) {
+	private static void collapse(Region toHide, double SIZE_HIDDEN, boolean hideH) {
+		for (Node childNode : toHide.getChildrenUnmodifiable()) {
 			childNode.setVisible(false);
 		}
 
 		if (hideH) {
-			sidebar.setPrefWidth(SIZE_HIDDEN);
-			sidebar.setMinWidth(SIZE_HIDDEN);
+			toHide.setPrefWidth(SIZE_HIDDEN);
+			toHide.setMinWidth(SIZE_HIDDEN);
 		} else {
-			sidebar.setPrefHeight(SIZE_HIDDEN);
-			sidebar.setMinHeight(SIZE_HIDDEN);
+			toHide.setPrefHeight(SIZE_HIDDEN);
+			toHide.setMinHeight(SIZE_HIDDEN);
 		}
 	}
 
-	private static void expand(Region sidebar, double SIZE_NORMAL, boolean hideH) {
-		for (Node childNode : sidebar.getChildrenUnmodifiable()) {
+	private static void expand(Region toHide, double SIZE_NORMAL, boolean hideH) {
+		for (Node childNode : toHide.getChildrenUnmodifiable()) {
 			childNode.setVisible(true);
 		}
 
 		if (hideH) {
-			sidebar.setPrefWidth(SIZE_NORMAL);
-			sidebar.setMinWidth(SIZE_NORMAL);
+			toHide.setPrefWidth(SIZE_NORMAL);
+			toHide.setMinWidth(SIZE_NORMAL);
 		} else {
-			sidebar.setPrefHeight(SIZE_NORMAL);
-			sidebar.setMinHeight(SIZE_NORMAL);
+			toHide.setPrefHeight(SIZE_NORMAL);
+			toHide.setMinHeight(SIZE_NORMAL);
 		}
 	}
 
