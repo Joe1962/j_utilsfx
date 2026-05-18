@@ -36,6 +36,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -73,7 +74,7 @@ import javafx.util.StringConverter;
  * @author joe1962
  */
 public class SUB_UtilsFX {
-	private static PauseTransition hoverTimer;
+	//private static PauseTransition hoverTimer;
 
 	//
 	//
@@ -825,12 +826,22 @@ public class SUB_UtilsFX {
 		int MAX_SIZE_HIDDEN = 50;
 
 		// Get current application screen pixels and calc bounds:
-		Rectangle2D bounds = Screen.getScreensForRectangle(new Rectangle2D(
+		Rectangle2D bounds;
+		if (Screen.getScreensForRectangle(new Rectangle2D(
 				  myStage.getX(), 
 				  myStage.getY(), 
 				  myStage.getWidth(), 
 				  myStage.getHeight()
-		)).getFirst().getVisualBounds();
+		)).size() == 0) {
+			bounds = Screen.getPrimary().getVisualBounds();
+		} else {
+			bounds = Screen.getScreensForRectangle(new Rectangle2D(
+					  myStage.getX(), 
+					  myStage.getY(), 
+					  myStage.getWidth(), 
+					  myStage.getHeight()
+			)).getFirst().getVisualBounds();
+		}
 
 		double rawSizeHidden;
 		if (hideH) {
@@ -908,6 +919,25 @@ public class SUB_UtilsFX {
 			toHide.setPrefHeight(SIZE_NORMAL);
 			toHide.setMinHeight(SIZE_NORMAL);
 		}
+	}
+
+	public static ToggleButton getButtonAutoHide(EventHandler<ActionEvent> handler, String captionSelected, String captionUnSelected, String tooltipSelected, String tooltipUnSelected) {
+		ToggleButton tbtAutoHide = new ToggleButton();
+		tbtAutoHide.setId("tbtAutoHide");
+		tbtAutoHide.setOnAction(handler);
+
+		tbtAutoHide.selectedProperty().addListener((obs, oldVal, newVal) -> {
+			setAutoHideTexts(tbtAutoHide, captionSelected, captionUnSelected, tooltipSelected, tooltipUnSelected);
+		});
+
+		setAutoHideTexts(tbtAutoHide, captionSelected, captionUnSelected, tooltipSelected, tooltipUnSelected);
+
+		return tbtAutoHide;
+	}
+
+	private static void setAutoHideTexts(ToggleButton tbtAutoHide, String captionSelected, String captionUnSelected, String tooltipSelected, String tooltipUnSelected) {
+		tbtAutoHide.setText(tbtAutoHide.isSelected() ? captionSelected : captionUnSelected);
+		tbtAutoHide.setTooltip(new Tooltip(tbtAutoHide.isSelected() ? tooltipSelected : tooltipUnSelected));
 	}
 
 }

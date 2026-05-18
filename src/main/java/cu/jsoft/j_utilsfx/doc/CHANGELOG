@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260511:
+	SUB_UtilsFX: Added getButtonAutoHide, setAutoHideTexts.
 260508:
 	SUB_UtilsFX.RegionAutoHider: Changed MIN_SIZE_HIDDEN to 15, MAX_SIZE_HIDDEN to 50.
 	SUB_UtilsFX: Renamed method SidebarAutoHider to RegionAutoHider.
