@@ -1,5 +1,8 @@
 CHANGELOG j_utilsfx:
 
+260518:
+	CONSTS.cssEtchedBorder: Changed -fx-border-shadow to black.
+	CONSTS: synced cssEtchedBorder with border-etched.css from HJRMSFX.
 260511:
 	SUB_UtilsFX: Added getButtonAutoHide, setAutoHideTexts.
 260508:
