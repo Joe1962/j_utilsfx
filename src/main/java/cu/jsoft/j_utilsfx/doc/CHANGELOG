@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260603:
+	Added interfaces.callbacks.CallbackForProcessHandling, but ended up not using it (for now).
 260518:
 	CONSTS.cssEtchedBorder: Changed -fx-border-shadow to black.
 	CONSTS: synced cssEtchedBorder with border-etched.css from HJRMSFX.
