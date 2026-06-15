@@ -101,6 +101,8 @@ public class SUB_UtilsFX {
 				return "-fx-alignment: CENTER-RIGHT;";
 			case "integer":
 				return "-fx-alignment: CENTER-RIGHT;";
+			case "biginteger":
+				return "-fx-alignment: CENTER-RIGHT;";
 			case "long":
 				return "-fx-alignment: CENTER-RIGHT;";
 			case "double":

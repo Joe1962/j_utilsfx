@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260615:
+	SUB_UtilsFX.getTableColumnTextAlignment: was missing case biginteger.
 260603:
 	Added interfaces.callbacks.CallbackForProcessHandling, but ended up not using it (for now).
 260518:
