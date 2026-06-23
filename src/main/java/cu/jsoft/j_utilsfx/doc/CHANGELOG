@@ -1,5 +1,7 @@
 CHANGELOG j_utilsfx:
 
+260616:
+	SUB_UtilsFX: imports cleanup.
 260615:
 	SUB_UtilsFX.getTableColumnTextAlignment: was missing case biginteger.
 260603:
