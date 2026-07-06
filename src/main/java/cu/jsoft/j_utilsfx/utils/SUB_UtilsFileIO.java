@@ -2,10 +2,10 @@
  * Copyright Joe1962
  * https://github.com/Joe1962
  */
-package cu.jsoft.j_utilsfx.subs;
+package cu.jsoft.j_utilsfx.utils;
 
 import static cu.jsoft.j_utilsfx.global.CONSTS.EMPTY_STRING;
-import static cu.jsoft.j_utilsfx.subs.SUB_UtilsOS.getOS;
+import static cu.jsoft.j_utilsfx.utils.SUB_UtilsOS.getOS;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -2,7 +2,7 @@
  * Copyright Joe1962
  * https://github.com/Joe1962
  */
-package cu.jsoft.j_utilsfx.subs;
+package cu.jsoft.j_utilsfx.utils;
 
 import cu.jsoft.j_utilsfx.global.CLS_WavPlayer;
 import static cu.jsoft.j_utilsfx.global.FLAGS.isBEEP;

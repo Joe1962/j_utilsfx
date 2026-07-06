@@ -2,9 +2,9 @@
  * Copyright Joe1962
  * https://github.com/Joe1962
  */
-package cu.jsoft.j_utilsfx.subs;
+package cu.jsoft.j_utilsfx.utils;
 
-import static cu.jsoft.j_utilsfx.subs.SUB_UtilsNotifications.echoln;
+import static cu.jsoft.j_utilsfx.utils.SUB_UtilsNotifications.echoln;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;

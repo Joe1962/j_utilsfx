@@ -1,5 +1,13 @@
 CHANGELOG j_utilsfx:
 
+260706:
+	Removed SECTION ComboBox in UtilsFX.
+	Added utils.fx.UtilsFX_combo, to replace SECTION ComboBox in UtilsFX.
+260704:
+	pom.xml: Added dependency com.opencsv 5.9.
+	Added class UtilsFX_Tables.
+	SUB_UtilsFX: Moved to package utils, renamed UtilsFX.
+	Renamed package 'subs' to 'utils'.
 260616:
 	SUB_UtilsFX: imports cleanup.
 260615:

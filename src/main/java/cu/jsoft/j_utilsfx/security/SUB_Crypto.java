@@ -4,7 +4,7 @@
  */
 package cu.jsoft.j_utilsfx.security;
 
-import static cu.jsoft.j_utilsfx.subs.SUB_UtilsNotifications.echoln;
+import static cu.jsoft.j_utilsfx.utils.SUB_UtilsNotifications.echoln;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

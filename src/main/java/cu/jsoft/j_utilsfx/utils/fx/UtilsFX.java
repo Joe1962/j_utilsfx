@@ -2,7 +2,7 @@
  * Copyright Joe1962
  * https://github.com/Joe1962
  */
-package cu.jsoft.j_utilsfx.subs;
+package cu.jsoft.j_utilsfx.utils.fx;
 
 import cu.jsoft.j_utilsfx.global.CONSTS;
 import cu.jsoft.j_utilsfx.global.types.TYP_retLoadFXML;
@@ -70,7 +70,7 @@ import javafx.util.StringConverter;
  *
  * @author joe1962
  */
-public class SUB_UtilsFX {
+public class UtilsFX {
 	//private static PauseTransition hoverTimer;
 
 	//
@@ -113,69 +113,6 @@ public class SUB_UtilsFX {
 			default:
 				return "-fx-alignment: CENTER-LEFT;";
 		}
-	}
-
-	//
-	//
-	// SECTION ComboBox / ScrollBox mouse scrolling:
-	public static void setupComboBoxScrolling(ComboBox<?> comboBox) {
-		comboBox.addEventFilter(ScrollEvent.SCROLL, event -> {
-			handleComboBoxScroll(event, comboBox);
-		});
-	}
-
-	private static void handleComboBoxScroll(ScrollEvent event, ComboBox<?> comboBox) {
-		// Only process every Nth event or use a cooldown
-		int currentIndex = comboBox.getSelectionModel().getSelectedIndex();
-		int itemCount = comboBox.getItems().size();
-
-		if (itemCount < 1) {
-			return;
-		}
-
-		// Round the delta to get discrete steps
-		int scrollSteps = (int) Math.signum(event.getDeltaY());
-
-		if (scrollSteps != 0) {
-			int newIndex = currentIndex - scrollSteps; // Invert for natural scrolling
-			newIndex = Math.max(0, Math.min(itemCount - 1, newIndex));
-
-			if (newIndex != currentIndex) {
-				comboBox.getSelectionModel().select(newIndex);
-			}
-		}
-
-		event.consume();
-	}
-
-	public static void setupChoiceBoxScrolling(ChoiceBox<?> chbBox) {
-		chbBox.addEventFilter(ScrollEvent.SCROLL, event -> {
-			handleChoiceBoxScroll(event, chbBox);
-		});
-	}
-
-	private static void handleChoiceBoxScroll(ScrollEvent event, ChoiceBox<?> chbBox) {
-		// Only process every Nth event or use a cooldown
-		int currentIndex = chbBox.getSelectionModel().getSelectedIndex();
-		int itemCount = chbBox.getItems().size();
-
-		if (itemCount <= 1) {
-			return;
-		}
-
-		// Round the delta to get discrete steps
-		int scrollSteps = (int) Math.signum(event.getDeltaY());
-
-		if (scrollSteps != 0) {
-			int newIndex = currentIndex - scrollSteps; // Invert for natural scrolling
-			newIndex = Math.max(0, Math.min(itemCount - 1, newIndex));
-
-			if (newIndex != currentIndex) {
-				chbBox.getSelectionModel().select(newIndex);
-			}
-		}
-
-		event.consume();
 	}
 
 	//
@@ -231,7 +168,7 @@ public class SUB_UtilsFX {
 				}
 			}
 		} catch (NoSuchFieldException | SecurityException | NoSuchMethodException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-			Logger.getLogger(SUB_UtilsFX.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(UtilsFX.class.getName()).log(Level.SEVERE, null, ex);
 			return false;
 		}
 		return true;
@@ -356,7 +293,7 @@ public class SUB_UtilsFX {
 
 	//
 	//
-	// SECTION DatePicker Calendar Highliting:
+	// SECTION DatePicker Calendar:
 	public static void setupCalendarHighliting(DatePicker DatePickerTo, DatePicker DatePickerFrom, ArrayList<LocalDate> DatesToHighlight, boolean cssIsDarkTheme, String toolTip) {
 		if (DatePickerFrom != null) {
 			if (!DatePickerFrom.isDisabled()) {
