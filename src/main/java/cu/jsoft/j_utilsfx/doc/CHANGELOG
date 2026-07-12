@@ -1,6 +1,7 @@
 CHANGELOG j_utilsfx:
 
 260712:
+	UtilsFX_FileIO: Added code comments.
 	Added utils.fx.UtilsFX_OS class, with enum OSTYPE, getFXOS method.
 	SUB_UtilsOS: Added getOSName method.
 	Added utils.fx.UtilsFX_FileIO class, with getDirectory method.

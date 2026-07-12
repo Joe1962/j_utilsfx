@@ -18,11 +18,11 @@ import javax.swing.filechooser.FileSystemView;
 public class UtilsFX_FileIO {
 
 	public File getDirectory(String title, File defaultDir, Window parent) {
-		DirectoryChooser directoryChooser = new DirectoryChooser();
+		// If defaultDir is null, use OS default:
 		File fallbackDir = FileSystemView.getFileSystemView().getDefaultDirectory();
 
+		// In Linux, force default directory to ~/Documents instead of user home:
 		UtilsFX_OS FX_OS = new UtilsFX_OS();
-
 		if (FX_OS.getFXOS() == OSTYPE.LINUX) {
 			String documentsDir = fallbackDir.getPath() + "/Documents";
 			if (FileExists(fallbackDir.getPath() + "/Documents")) {
@@ -30,8 +30,12 @@ public class UtilsFX_FileIO {
 			}
 		}
 
+		// Instantiate a DirectoryChooser and set parameters:
+		DirectoryChooser directoryChooser = new DirectoryChooser();
 		directoryChooser.setInitialDirectory(defaultDir != null ? defaultDir : fallbackDir);
 		directoryChooser.setTitle(title);
+
+		// Show DirectoryChooser and return selection:
 		File selectedDirectory = directoryChooser.showDialog(parent);
 		return selectedDirectory;
 	}
