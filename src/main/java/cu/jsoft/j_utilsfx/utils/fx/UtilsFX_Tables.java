@@ -57,9 +57,11 @@ public class UtilsFX_Tables {
 				  .filter(TableColumn::isVisible)
 				  .collect(Collectors.toList());
 
+		char mySeparator = ';';
 		try (CSVWriter csvWriter = new CSVWriter(writer,
-				  CSVWriter.DEFAULT_SEPARATOR,
-				  CSVWriter.NO_QUOTE_CHARACTER, // we let OpenCSV decide quoting
+				  //CSVWriter.DEFAULT_SEPARATOR,
+				  mySeparator,
+				  CSVWriter.DEFAULT_QUOTE_CHARACTER,
 				  CSVWriter.DEFAULT_ESCAPE_CHARACTER,
 				  CSVWriter.DEFAULT_LINE_END)) {
 

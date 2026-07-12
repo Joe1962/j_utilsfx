@@ -1,6 +1,8 @@
 CHANGELOG j_utilsfx:
 
 260712:
+	UtilsFX_Tables.exportTableViewToCSV: changed CSVWriter.DEFAULT_SEPARATOR to ';'.
+	UtilsFX_Tables.exportTableViewToCSV: changed CSVWriter.NO_QUOTE_CHARACTER to CSVWriter.DEFAULT_QUOTE_CHARACTER.
 	UtilsFX_FileIO.getDirectory now uses SUB_UtilsOS.getOSType.
 	SUB_UtilsOS: Added getOSType method, OSTYPE enum.
 	SUB_UtilsOS: Renamed getOS method to getOSInfo.
