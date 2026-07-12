@@ -53,6 +53,10 @@ public class SUB_UtilsOS {
 		return OpSys;
 	}
 
+	public static String getOSName() {
+		return getOS()[0];
+	}
+
 	public static long getFreeMem() {
 		return Runtime.getRuntime().freeMemory();
 	}

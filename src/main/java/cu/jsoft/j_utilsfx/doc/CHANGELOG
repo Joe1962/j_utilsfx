@@ -1,5 +1,9 @@
 CHANGELOG j_utilsfx:
 
+260712:
+	Added utils.fx.UtilsFX_OS class, with enum OSTYPE, getFXOS method.
+	SUB_UtilsOS: Added getOSName method.
+	Added utils.fx.UtilsFX_FileIO class, with getDirectory method.
 260706:
 	BUG: Fixed handleScroll scrolls 2 items issue.
 	Replaced replaced separate ComboBox, ChoiceBox methods with unfied methods.
