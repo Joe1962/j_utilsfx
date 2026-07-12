@@ -1,6 +1,10 @@
 CHANGELOG j_utilsfx:
 
 260712:
+	UtilsFX_FileIO.getDirectory now uses SUB_UtilsOS.getOSType.
+	SUB_UtilsOS: Added getOSType method, OSTYPE enum.
+	SUB_UtilsOS: Renamed getOS method to getOSInfo.
+	Removed SUB_UtilsOS, getOSName used internal sun class com.sun.javafx.PlatformUtil.
 	UtilsFX_FileIO: Added code comments.
 	Added utils.fx.UtilsFX_OS class, with enum OSTYPE, getFXOS method.
 	SUB_UtilsOS: Added getOSName method.

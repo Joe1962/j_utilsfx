@@ -44,7 +44,7 @@ public class SUB_UtilsOS {
 		return System.getProperty("java.version");
 	}
 
-	public static String[] getOS() {
+	public static String[] getOSInfo() {
 		String[] OpSys = new String[4];
 		OpSys[1] = System.getProperty("os.name");
 		OpSys[2] = System.getProperty("os.version");
@@ -54,7 +54,27 @@ public class SUB_UtilsOS {
 	}
 
 	public static String getOSName() {
-		return getOS()[0];
+		return getOSInfo()[0];
+	}
+
+	public static OSTYPE getOSType() {
+		String OSName = getOSInfo()[0].toLowerCase();
+		if (OSName.startsWith("linux")) {
+			return OSTYPE.LINUX;
+		} else if (OSName.startsWith("windows")) {
+			return OSTYPE.WINDOWS;
+		} else if (OSName.startsWith("mac")) {
+			return OSTYPE.MACOS;
+		} else {
+			return OSTYPE.UNKNOWN;
+		}
+	}
+
+	public enum OSTYPE {
+		LINUX,
+		WINDOWS,
+		MACOS,
+		UNKNOWN
 	}
 
 	public static long getFreeMem() {

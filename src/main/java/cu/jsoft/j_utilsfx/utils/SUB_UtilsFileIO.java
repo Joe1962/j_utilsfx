@@ -5,7 +5,6 @@
 package cu.jsoft.j_utilsfx.utils;
 
 import static cu.jsoft.j_utilsfx.global.CONSTS.EMPTY_STRING;
-import static cu.jsoft.j_utilsfx.utils.SUB_UtilsOS.getOS;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -35,6 +34,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
+import static cu.jsoft.j_utilsfx.utils.SUB_UtilsOS.getOSInfo;
 
 /**
  *
@@ -144,7 +144,7 @@ public class SUB_UtilsFileIO {
 		ArrayList<String> DriveList = new ArrayList<>();
 
 		String[] DrivesPossible = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
-		String[] MyOS = SUB_UtilsOS.getOS();
+		String[] MyOS = SUB_UtilsOS.getOSInfo();
 		if (MyOS[0].startsWith("Linux")) {
 			for (String strDriveLetter : DrivesPossible) {
 				StringBuilder MySB = new StringBuilder();
@@ -237,7 +237,7 @@ public class SUB_UtilsFileIO {
 		StringBuilder MySB = new StringBuilder();
 		String retStr = EMPTY_STRING;
 
-		String[] MyOS = SUB_UtilsOS.getOS();
+		String[] MyOS = SUB_UtilsOS.getOSInfo();
 		if (MyOS[0].startsWith("Linux")) {
 			// Execute udevadm:
 			String Udevadm = getUdevadm();
@@ -291,7 +291,7 @@ public class SUB_UtilsFileIO {
 		StringBuilder MySB = new StringBuilder();
 		String retStr = EMPTY_STRING;
 
-		String[] MyOS = getOS();
+		String[] MyOS = getOSInfo();
 		if (MyOS[0].startsWith("Linux")) {
 			String Udevadm = getUdevadm();
 			if (Udevadm==null)
