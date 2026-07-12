@@ -1,6 +1,8 @@
 CHANGELOG j_utilsfx:
 
 260706:
+	BUG: Fixed handleScroll scrolls 2 items issue.
+	Replaced replaced separate ComboBox, ChoiceBox methods with unfied methods.
 	Removed SECTION ComboBox in UtilsFX.
 	Added utils.fx.UtilsFX_combo, to replace SECTION ComboBox in UtilsFX.
 260704:
