@@ -367,7 +367,14 @@ public class UtilsFX {
 	//
 	//
 	// SECTION Default Font:
-	public static void setDefaultFontToAll(Parent parent, Font font) {
+	public static void applyBaseFont(Parent parent, Font font) {
+		Platform.runLater(() -> {
+			//do javafx stuff here...;
+			setDefaultFontToAll(parent, font);
+		});
+	}
+
+	private static void setDefaultFontToAll(Parent parent, Font font) {
 		// Apply to this node
 		applyFontViaCSS(parent, font);
 

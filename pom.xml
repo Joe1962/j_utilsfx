@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cu.jsoft</groupId>
 	<artifactId>j_utilsfx</artifactId>
-	<version>1.4.1</version>
+	<version>1.8.9</version>
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>

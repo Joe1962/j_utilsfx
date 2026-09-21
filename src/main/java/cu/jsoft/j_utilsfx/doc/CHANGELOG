@@ -1,5 +1,8 @@
 CHANGELOG j_utilsfx:
 
+260921:
+	UtilsFX: setDefaultFontToAll is now private.
+	Moved applyBaseFont from hjrmsfx to j_utilsfx.utils.fx.UtilsFX.
 260712:
 	UtilsFX_Tables.exportTableViewToCSV: changed CSVWriter.DEFAULT_SEPARATOR to ';'.
 	UtilsFX_Tables.exportTableViewToCSV: changed CSVWriter.NO_QUOTE_CHARACTER to CSVWriter.DEFAULT_QUOTE_CHARACTER.
